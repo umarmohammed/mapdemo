@@ -10,6 +10,8 @@ import XYZ from 'ol/source/XYZ.js';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
+  map: Map;
+
   constructor() {}
 
   ngOnInit() {
@@ -49,7 +51,7 @@ export class MapComponent implements OnInit {
 
     console.log(layers);
 
-    const map = new Map({
+    this.map = new Map({
       target: 'map',
       layers,
       view: new View({
@@ -66,5 +68,34 @@ export class MapComponent implements OnInit {
       .replace('{scheme}', layerDesc.scheme)
       .replace('{app_id}', layerDesc.app_id)
       .replace('{app_code}', layerDesc.app_code);
+  }
+
+  addTile() {
+    const hereLayer = {
+      base: 'base',
+      type: 'maptile',
+      scheme: 'normal.night',
+      app_id: '174bSJVz4Udf1Wk4xmpG',
+      app_code: 'CWHmug8fv75vYfUPHCqprA'
+    };
+
+    var urlTpl =
+      'https://{1-4}.{base}.maps.cit.api.here.com' +
+      '/{type}/2.1/maptile/newest/{scheme}/{z}/{x}/{y}/256/png' +
+      '?app_id={app_id}&app_code={app_code}';
+
+    this.map.addLayer(
+      new TileLayer({
+        preload: Infinity,
+        source: new XYZ({
+          url: this.createUrl(urlTpl, hereLayer),
+          attributions:
+            'Map Tiles &copy; ' +
+            new Date().getFullYear() +
+            ' ' +
+            '<a href="http://developer.here.com">HERE</a>'
+        })
+      })
+    );
   }
 }
