@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LayerStore } from 'src/app/services/layer-store.service';
+import { LayerStore } from 'src/app/store/layer-store.service';
 
 @Component({
   selector: 'app-map-builder',

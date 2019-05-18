@@ -1,7 +1,7 @@
 <mat-sidenav-container class="sidenav-container" [hasBackdrop]="false">
   <mat-sidenav #sidenav mode="push" class="side-nav" [autoFocus]="false">
     <app-map-settings
-      (layerAdded)="store.addLayer($event)"
+      (layerEvent)="store.dispatch($event)"
       (toggleNav)="sidenav.toggle()"
       [layers]="store.state$ | async"
     ></app-map-settings>
