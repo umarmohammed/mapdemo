@@ -2,7 +2,7 @@
   <mat-toolbar-row>
     <span>Map demo</span>
     <span class="toolbar-spacer"></span>
-    <button (click)="toggleNav.emit()" mat-icon-button class="back-icon">
+    <button (click)="toggleNav.emit()" mat-icon-button>
       <mat-icon>arrow_back</mat-icon>
     </button>
   </mat-toolbar-row>
@@ -21,6 +21,17 @@
     {{ layer.scheme }}
   </mat-card-content>
   <mat-card-actions>
-    <button (click)="removeLayer(layer)" mat-button color="warn">Remove</button>
+    <button
+      (click)="emitAction(layer, actionTypes.RemoveLayer)"
+      mat-button
+      color="warn"
+    >
+      Remove
+    </button>
+    <mat-checkbox
+      [checked]="layer.visible"
+      (change)="emitAction(layer, actionTypes.ToggleVisibility)"
+      class="card-check-box"
+    ></mat-checkbox>
   </mat-card-actions>
 </mat-card>

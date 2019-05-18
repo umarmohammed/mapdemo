@@ -1,7 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HereLayer } from 'src/app/models/here-layer.model';
-import { HereLayerAction, HereLayerActions } from 'src/app/store/actions';
+import {
+  HereLayerAction,
+  HereLayerActions,
+  HereLayerActionType
+} from 'src/app/store/actions';
 import { AddHereLayerDialogComponent } from '../add-here-layer-dialog/add-here-layer-dialog.component';
 
 @Component({
@@ -23,6 +27,10 @@ export class HereLayerManagerComponent implements OnInit {
 
   ngOnInit() {}
 
+  get actionTypes() {
+    return HereLayerActions;
+  }
+
   addLayer() {
     let dialogRef = this.dialog.open(AddHereLayerDialogComponent, {
       height: '400px',
@@ -37,9 +45,7 @@ export class HereLayerManagerComponent implements OnInit {
     });
   }
 
-  removeLayer(layer: HereLayer) {
-    this.layerEvent.emit(
-      new HereLayerAction(HereLayerActions.RemoveLayer, layer)
-    );
+  emitAction(layer: HereLayer, action: HereLayerActionType) {
+    this.layerEvent.emit(new HereLayerAction(action, layer));
   }
 }

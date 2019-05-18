@@ -27,6 +27,24 @@ export class Store {
         return [...updatedState];
       }
 
+      case HereLayerActions.ToggleVisibility: {
+        const updatedState = state.map(layer => {
+          if (layer === action.payload) {
+            console.log('toggle ', layer);
+            console.log('not ', !layer.visible);
+            return {
+              ...action.payload,
+              visible: !layer.visible
+            };
+          }
+
+          return layer;
+        });
+
+        console.log(updatedState);
+        return [...updatedState];
+      }
+
       default:
         return state;
     }
