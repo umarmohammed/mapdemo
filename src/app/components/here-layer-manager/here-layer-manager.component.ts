@@ -1,4 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  OnDestroy
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HereLayer } from 'src/app/models/here-layer.model';
 import {
@@ -7,13 +14,14 @@ import {
   HereLayerActionType
 } from 'src/app/store/actions';
 import { AddHereLayerDialogComponent } from '../add-here-layer-dialog/add-here-layer-dialog.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-here-layer-manager',
   templateUrl: './here-layer-manager.component.html',
   styleUrls: ['./here-layer-manager.component.scss']
 })
-export class HereLayerManagerComponent implements OnInit {
+export class HereLayerManagerComponent implements OnInit, OnDestroy {
   @Output()
   toggleNav = new EventEmitter();
 
@@ -22,6 +30,8 @@ export class HereLayerManagerComponent implements OnInit {
 
   @Input()
   layers: HereLayer[];
+
+  sub: Subscription;
 
   constructor(public dialog: MatDialog) {}
 
@@ -36,7 +46,7 @@ export class HereLayerManagerComponent implements OnInit {
       width: '600px'
     });
 
-    dialogRef.afterClosed().subscribe(layer => {
+    this.sub = dialogRef.afterClosed().subscribe(layer => {
       if (layer)
         this.layerEvent.emit(
           new HereLayerAction(HereLayerActions.AddLayer, layer)
@@ -46,5 +56,9 @@ export class HereLayerManagerComponent implements OnInit {
 
   emitAction(layer: HereLayer, action: HereLayerActionType) {
     this.layerEvent.emit(new HereLayerAction(action, layer));
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }
