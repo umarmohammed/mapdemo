@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import Map from 'ol/map';
 import View from 'ol/View';
@@ -12,6 +12,9 @@ import { LayerService } from 'src/app/services/layer.service';
 export class MapComponent implements OnInit {
   map: Map;
 
+  @Output()
+  toggleNav = new EventEmitter();
+
   constructor(private layerService: LayerService) {}
 
   ngOnInit() {
@@ -23,6 +26,7 @@ export class MapComponent implements OnInit {
           tile: 'basetile'
         })
       ],
+      controls: [],
       view: new View({
         center: [20371.9389, 6858337.7609],
         zoom: 9
