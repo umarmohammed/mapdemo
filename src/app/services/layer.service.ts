@@ -19,7 +19,8 @@ export class LayerService {
           new Date().getFullYear() +
           ' ' +
           '<a href="http://developer.here.com">HERE</a>'
-      })
+      }),
+      visible: hereLayer.visible
     });
   }
 

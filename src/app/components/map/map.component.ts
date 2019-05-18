@@ -17,7 +17,7 @@ export class MapComponent implements OnInit {
   @Output()
   toggleNav = new EventEmitter();
 
-  mapLayers: any[] = [];
+  mapLayers: any[] = []; // temp hack to get map deleting to work
 
   constructor(private layerService: LayerService, private store: Store) {
     this.store.state$.subscribe(layers => this.updateLayers(layers));
