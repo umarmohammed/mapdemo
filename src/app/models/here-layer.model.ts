@@ -4,4 +4,5 @@ export interface HereLayer {
   scheme: string;
   tile: BaseMapTile;
   visible: boolean;
+  opacity: number;
 }

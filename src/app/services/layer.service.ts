@@ -20,7 +20,8 @@ export class LayerService {
           ' ' +
           '<a href="http://developer.here.com">HERE</a>'
       }),
-      visible: hereLayer.visible
+      visible: hereLayer.visible,
+      opacity: hereLayer.opacity / 100
     });
   }
 

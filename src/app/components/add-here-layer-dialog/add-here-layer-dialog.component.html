@@ -26,6 +26,26 @@
         <mat-hint align="end">The 'skin' for the map.</mat-hint>
       </mat-form-field>
     </div>
+    <div>
+      <mat-label>Opacity</mat-label>
+      <mat-slider
+        class="example-margin"
+        [max]="100"
+        [min]="0"
+        [step]="1"
+        [thumbLabel]="true"
+        [value]="addHereLayerForm.controls.opacity.value"
+        (change)="onSliderChange($event)"
+      >
+      </mat-slider>
+      <input
+        type="number"
+        matInput
+        placeholder="Opacity"
+        formControlName="opacity"
+        class="opacity-input"
+      />
+    </div>
   </div>
   <div mat-dialog-actions>
     <button mat-button [mat-dialog-close]="">Cancel</button>

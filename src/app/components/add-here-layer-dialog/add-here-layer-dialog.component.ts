@@ -12,7 +12,8 @@ import { HereLayer } from 'src/app/models/here-layer.model';
 export class AddHereLayerDialogComponent implements OnInit {
   addHereLayerForm = this.fb.group({
     scheme: ['', Validators.required],
-    tile: ['', Validators.required]
+    tile: ['', Validators.required],
+    opacity: ['100']
   });
 
   constructor(
@@ -32,5 +33,9 @@ export class AddHereLayerDialogComponent implements OnInit {
     };
 
     this.dialogRef.close(hereLayer);
+  }
+
+  onSliderChange(event: any) {
+    this.addHereLayerForm.controls.opacity.setValue(event.value);
   }
 }
