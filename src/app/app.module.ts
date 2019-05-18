@@ -33,6 +33,6 @@ import * as fromComponents from './components';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [fromComponents.AddTileComponent]
+  entryComponents: [fromComponents.AddHereLayerDialogComponent]
 })
 export class AppModule {}

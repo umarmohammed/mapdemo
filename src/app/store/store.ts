@@ -1,28 +1,28 @@
 import { HereLayer } from '../models/here-layer.model';
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { LayerAction, LayerActions } from './actions';
+import { HereLayerAction, HereLayerActions } from './actions';
 
 @Injectable({ providedIn: 'root' })
-export class LayerStore {
+export class Store {
   private store: BehaviorSubject<HereLayer[]> = new BehaviorSubject([]);
 
   get state$() {
     return this.store.asObservable();
   }
 
-  dispatch(action: LayerAction) {
+  dispatch(action: HereLayerAction) {
     const state = this.reduce(this.store.value, action);
 
     this.store.next(state);
   }
 
-  private reduce(state: HereLayer[], action: LayerAction): HereLayer[] {
+  private reduce(state: HereLayer[], action: HereLayerAction): HereLayer[] {
     switch (action.type) {
-      case LayerActions.AddLayer: {
+      case HereLayerActions.AddLayer: {
         return [...state, action.payload];
       }
-      case LayerActions.RemoveLayer: {
+      case HereLayerActions.RemoveLayer: {
         const updatedState = state.filter(layer => layer !== action.payload);
         return [...updatedState];
       }

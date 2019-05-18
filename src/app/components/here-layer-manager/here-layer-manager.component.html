@@ -7,8 +7,8 @@
     </button>
   </mat-toolbar-row>
   <mat-toolbar-row>
-    <button (click)="addTile()" mat-flat-button color="primary">
-      Add tile
+    <button (click)="addLayer()" mat-flat-button color="primary">
+      Add layer
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -21,6 +21,6 @@
     {{ layer.scheme }}
   </mat-card-content>
   <mat-card-actions>
-    <button (click)="removeTile(layer)" mat-button color="warn">Remove</button>
+    <button (click)="removeLayer(layer)" mat-button color="warn">Remove</button>
   </mat-card-actions>
 </mat-card>

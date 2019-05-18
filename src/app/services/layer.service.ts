@@ -3,10 +3,13 @@ import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import { HereLayer } from '../models/here-layer.model';
 import { environment } from 'src/environments/environment';
+import { BaseMapTile } from '../models/base-map-tile.model';
+import { baseMapTiles } from '../constants/base-map-tiles';
+import { schemes } from '../constants/schemes';
 
 @Injectable({ providedIn: 'root' })
 export class LayerService {
-  createTileLayer(hereLayer: HereLayer): TileLayer {
+  createOlTileLayer(hereLayer: HereLayer): TileLayer {
     return new TileLayer({
       preload: Infinity,
       source: new XYZ({
@@ -18,6 +21,14 @@ export class LayerService {
           '<a href="http://developer.here.com">HERE</a>'
       })
     });
+  }
+
+  get baseMapTiles(): BaseMapTile[] {
+    return baseMapTiles;
+  }
+
+  get schemes(): string[] {
+    return schemes;
   }
 
   private createUrl(hereLayer: HereLayer) {

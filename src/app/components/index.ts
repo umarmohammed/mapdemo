@@ -1,13 +1,13 @@
-import { AddTileComponent } from './add-tile/add-tile.component';
+import { AddHereLayerDialogComponent } from './add-here-layer-dialog/add-here-layer-dialog.component';
 import { MapComponent } from './map/map.component';
-import { MapSettingsComponent } from './map-settings/map-settings.component';
-import { MapBuilderComponent } from './map-builder/map-builder.component';
+import { HereLayerManagerComponent } from './here-layer-manager/here-layer-manager.component';
+import { HomeComponent } from './home/home.component';
 
 export const components = [
-  AddTileComponent,
-  MapComponent,
-  MapSettingsComponent,
-  MapBuilderComponent
+  AddHereLayerDialogComponent,
+  HereLayerManagerComponent,
+  HomeComponent,
+  MapComponent
 ];
 
-export * from './add-tile/add-tile.component';
+export * from './add-here-layer-dialog/add-here-layer-dialog.component';

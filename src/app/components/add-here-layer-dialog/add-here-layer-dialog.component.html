@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Configure the tile to add</h1>
+<h1 mat-dialog-title>Configure the layer to add</h1>
 
-<form [formGroup]="addTileForm">
+<form [formGroup]="addHereLayerForm">
   <div mat-dialog-content>
     <div>
       <mat-form-field>
@@ -11,7 +11,7 @@
           </mat-option>
         </mat-select>
         <mat-hint align="end">
-          {{ addTileForm.controls.tile.value.description }}</mat-hint
+          {{ addHereLayerForm.controls.tile.value.description }}</mat-hint
         >
       </mat-form-field>
     </div>

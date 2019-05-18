@@ -1,12 +1,14 @@
 import { HereLayer } from '../models/here-layer.model';
 
-export enum LayerActions {
+export enum HereLayerActions {
   AddLayer = 'Add Layer',
   RemoveLayer = 'Remove Layer'
 }
 
-export class LayerAction {
-  constructor(public type: LayerActionType, public payload: HereLayer) {}
+export class HereLayerAction {
+  constructor(public type: HereLayerActionType, public payload: HereLayer) {}
 }
 
-type LayerActionType = LayerActions.AddLayer | LayerActions.RemoveLayer;
+type HereLayerActionType =
+  | HereLayerActions.AddLayer
+  | HereLayerActions.RemoveLayer;
