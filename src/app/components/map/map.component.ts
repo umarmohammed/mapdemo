@@ -3,7 +3,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import Map from 'ol/map';
 import View from 'ol/View';
 import { LayerService } from 'src/app/services/layer.service';
-import { LayerStore } from 'src/app/services/layer-store.service';
+import { LayerStore } from 'src/app/store/layer-store.service';
 import { HereLayer } from 'src/app/models/here-layer.model';
 
 @Component({
@@ -17,12 +17,10 @@ export class MapComponent implements OnInit {
   @Output()
   toggleNav = new EventEmitter();
 
+  mapLayers: any[] = [];
+
   constructor(private layerService: LayerService, private store: LayerStore) {
-    this.store.state$.subscribe(layers => {
-      if (layers.length) {
-        this.addTile(layers[layers.length - 1]);
-      }
-    });
+    this.store.state$.subscribe(layers => this.updateLayers(layers));
   }
 
   ngOnInit() {
@@ -36,7 +34,16 @@ export class MapComponent implements OnInit {
     });
   }
 
-  addTile(layer: HereLayer) {
-    this.map.addLayer(this.layerService.createTileLayer(layer));
+  updateLayers(layers: HereLayer[]) {
+    if (this.map) {
+      this.mapLayers.forEach(layer => this.map.removeLayer(layer));
+      this.mapLayers = [];
+
+      layers.map(layer =>
+        this.mapLayers.push(this.layerService.createTileLayer(layer))
+      );
+      this.mapLayers.forEach(layer => this.map.addLayer(layer));
+      this.map.render();
+    }
   }
 }
