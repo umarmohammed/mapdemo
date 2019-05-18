@@ -12,7 +12,7 @@ import { HereLayer } from 'src/app/models/here-layer.model';
 export class AddTileComponent implements OnInit {
   addTileForm = this.fb.group({
     scheme: ['', Validators.required],
-    bmt: ['', Validators.required]
+    tile: ['', Validators.required]
   });
 
   constructor(
@@ -26,10 +26,6 @@ export class AddTileComponent implements OnInit {
   ok() {
     if (!this.addTileForm.valid) return;
 
-    const layer: HereLayer = {
-      ...this.addTileForm.value,
-      tile: this.addTileForm.controls.bmt.value.key
-    };
-    this.dialogRef.close(layer);
+    this.dialogRef.close(this.addTileForm.value);
   }
 }

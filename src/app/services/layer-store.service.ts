@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class LayerStore {
   private store: BehaviorSubject<HereLayer[]> = new BehaviorSubject([]);
 
-  get state() {
+  get state$() {
     return this.store.asObservable();
   }
 

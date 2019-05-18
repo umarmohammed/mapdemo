@@ -12,3 +12,12 @@
     </button>
   </mat-toolbar-row>
 </mat-toolbar>
+
+<mat-card *ngFor="let layer of layers" class="layer-info-card">
+  <mat-card-title>
+    {{ layer.tile.name }}
+  </mat-card-title>
+  <mat-card-content>
+    {{ layer.scheme }}
+  </mat-card-content>
+</mat-card>
