@@ -3,6 +3,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import Map from 'ol/map';
 import View from 'ol/View';
 import { LayerService } from 'src/app/services/layer.service';
+import { LayerStore } from 'src/app/services/layer-store.service';
+import { HereLayer } from 'src/app/models/here-layer.model';
 
 @Component({
   selector: 'app-map',
@@ -15,17 +17,17 @@ export class MapComponent implements OnInit {
   @Output()
   toggleNav = new EventEmitter();
 
-  constructor(private layerService: LayerService) {}
+  constructor(private layerService: LayerService, private store: LayerStore) {
+    this.store.state.subscribe(layers => {
+      if (layers.length) {
+        this.addTile(layers[layers.length - 1]);
+      }
+    });
+  }
 
   ngOnInit() {
     this.map = new Map({
       target: 'map',
-      layers: [
-        this.layerService.createTileLayer({
-          scheme: 'normal.day',
-          tile: 'basetile'
-        })
-      ],
       controls: [],
       view: new View({
         center: [20371.9389, 6858337.7609],
@@ -34,12 +36,7 @@ export class MapComponent implements OnInit {
     });
   }
 
-  addTile() {
-    this.map.addLayer(
-      this.layerService.createTileLayer({
-        scheme: 'normal.day',
-        tile: 'streettile'
-      })
-    );
+  addTile(layer: HereLayer) {
+    this.map.addLayer(this.layerService.createTileLayer(layer));
   }
 }

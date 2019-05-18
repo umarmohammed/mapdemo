@@ -1,4 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddTileComponent } from '../add-tile/add-tile.component';
+import { HereLayer } from 'src/app/models/here-layer.model';
 
 @Component({
   selector: 'app-map-settings',
@@ -9,7 +12,23 @@ export class MapSettingsComponent implements OnInit {
   @Output()
   toggleNav = new EventEmitter();
 
-  constructor() {}
+  @Output()
+  layerAdded = new EventEmitter<HereLayer>();
+
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit() {}
+
+  addTile() {
+    let dialogRef = this.dialog.open(AddTileComponent, {
+      height: '400px',
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe((layer: HereLayer) => {
+      if (layer) {
+        this.layerAdded.emit(layer);
+      }
+    });
+  }
 }
