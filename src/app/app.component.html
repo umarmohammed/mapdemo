@@ -1,1 +1,9 @@
-<app-map></app-map>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="over" class="side-nav" [autoFocus]="false">
+    <app-map-settings (toggleNav)="sidenav.toggle()"></app-map-settings>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-map (toggleNav)="sidenav.toggle()"></app-map>
+  </mat-sidenav-content>
+</mat-sidenav-container>
