@@ -33,7 +33,6 @@ export class HereLayerManagerComponent implements OnInit {
 
   addLayer() {
     let dialogRef = this.dialog.open(AddHereLayerDialogComponent, {
-      height: '400px',
       width: '600px'
     });
 

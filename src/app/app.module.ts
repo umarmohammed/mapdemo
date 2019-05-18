@@ -12,6 +12,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppComponent } from './app.component';
 import * as fromComponents from './components';
@@ -31,7 +33,9 @@ import * as fromComponents from './components';
     MatDialogModule,
     MatSelectModule,
     MatCardModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSliderModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent],
