@@ -22,7 +22,7 @@ export class LayerService {
 
   private createUrl(hereLayer: HereLayer) {
     return `https://{1-4}.base.maps.cit.api.here.com/maptile/2.1/${
-      hereLayer.tile
+      hereLayer.tile.key
     }/newest/${hereLayer.scheme}/{z}/{x}/{y}/256/png?app_id=${
       environment.hereCredentials.app_id
     }&app_code=${environment.hereCredentials.app_code}`;

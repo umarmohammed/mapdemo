@@ -4,6 +4,19 @@
   <div mat-dialog-content>
     <div>
       <mat-form-field>
+        <mat-label>Base map tile</mat-label>
+        <mat-select required formControlName="tile">
+          <mat-option *ngFor="let bmt of options.baseMapTiles" [value]="bmt">
+            {{ bmt.name }}
+          </mat-option>
+        </mat-select>
+        <mat-hint align="end">
+          {{ addTileForm.controls.tile.value.description }}</mat-hint
+        >
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
         <mat-label>Scheme</mat-label>
         <mat-select required formControlName="scheme">
           <mat-option *ngFor="let scheme of options.schemes" [value]="scheme">
@@ -11,19 +24,6 @@
           </mat-option>
         </mat-select>
         <mat-hint align="end">The 'skin' for the map.</mat-hint>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field>
-        <mat-label>Base map tile</mat-label>
-        <mat-select required formControlName="bmt">
-          <mat-option *ngFor="let bmt of options.baseMapTiles" [value]="bmt">
-            {{ bmt.name }}
-          </mat-option>
-        </mat-select>
-        <mat-hint align="end">
-          {{ addTileForm.controls.bmt.value.description }}</mat-hint
-        >
       </mat-form-field>
     </div>
   </div>

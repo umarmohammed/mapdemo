@@ -3,6 +3,7 @@
     <app-map-settings
       (layerAdded)="store.addLayer($event)"
       (toggleNav)="sidenav.toggle()"
+      [layers]="store.state$ | async"
     ></app-map-settings>
   </mat-sidenav>
 

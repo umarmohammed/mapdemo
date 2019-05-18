@@ -18,7 +18,7 @@ export class MapComponent implements OnInit {
   toggleNav = new EventEmitter();
 
   constructor(private layerService: LayerService, private store: LayerStore) {
-    this.store.state.subscribe(layers => {
+    this.store.state$.subscribe(layers => {
       if (layers.length) {
         this.addTile(layers[layers.length - 1]);
       }
