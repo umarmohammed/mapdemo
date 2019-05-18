@@ -1,18 +1,26 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  OnDestroy
+} from '@angular/core';
 
 import Map from 'ol/map';
 import View from 'ol/View';
 import { LayerService } from 'src/app/services/layer.service';
 import { Store } from 'src/app/store/store';
 import { HereLayer } from 'src/app/models/here-layer.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
   map: Map;
+  sub: Subscription;
 
   @Output()
   toggleNav = new EventEmitter();
@@ -45,5 +53,9 @@ export class MapComponent implements OnInit {
       this.mapLayers.forEach(layer => this.map.addLayer(layer));
       this.map.render();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

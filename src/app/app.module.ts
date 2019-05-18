@@ -6,10 +6,16 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import * as fromComponents from './components';
+import * as fromContainers from './containers';
+
 import { MaterialModule } from 'src/material/material.module';
 
 @NgModule({
-  declarations: [AppComponent, ...fromComponents.components],
+  declarations: [
+    AppComponent,
+    ...fromComponents.components,
+    ...fromContainers.containers
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
