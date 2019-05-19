@@ -3,13 +3,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppComponent } from './app.component';
 import * as fromComponents from './components';
 import * as fromContainers from './containers';
 
 import { MaterialModule } from 'src/material/material.module';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { MaterialModule } from 'src/material/material.module';
     FormsModule,
     CommonModule,
     MaterialModule,
-    DragDropModule
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -28,7 +28,7 @@ export class MapComponent implements OnInit, OnDestroy {
   mapLayers: any[] = []; // temp hack to get map deleting to work
 
   constructor(private layerService: LayerService, private store: Store) {
-    this.store.state$.subscribe(layers => this.updateLayers(layers));
+    this.store.layers$.subscribe(layers => this.updateLayers(layers));
   }
 
   ngOnInit() {

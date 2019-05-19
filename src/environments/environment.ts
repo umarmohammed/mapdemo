@@ -1,4 +1,5 @@
 import { hereCredentials } from 'src/here-map.credentials';
+import { firebase } from 'src/firebase.config';
 
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
@@ -6,7 +7,8 @@ import { hereCredentials } from 'src/here-map.credentials';
 
 export const environment = {
   production: false,
-  hereCredentials
+  hereCredentials,
+  firebase
 };
 
 /*
