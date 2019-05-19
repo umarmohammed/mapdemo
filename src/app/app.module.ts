@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
 import * as fromComponents from './components';
@@ -22,7 +23,8 @@ import { MaterialModule } from 'src/material/material.module';
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent],

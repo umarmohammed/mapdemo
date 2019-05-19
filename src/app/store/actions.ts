@@ -1,17 +1,23 @@
 import { HereLayer } from '../models/here-layer.model';
 
-export enum HereLayerActions {
+export enum HereLayerCrudActions {
   AddLayer = 'add',
   RemoveLayer = 'remove',
   UpdateLayer = 'update'
 }
 
-export interface HereLayerAction {
-  type: HereLayerActionType;
+export enum HereLayerListActions {
+  Reorder = 'reorder'
+}
+
+export interface HereLayerCrudAction {
+  type: HereLayerCrudActions;
   payload: HereLayer;
 }
 
-export type HereLayerActionType =
-  | HereLayerActions.AddLayer
-  | HereLayerActions.RemoveLayer
-  | HereLayerActions.UpdateLayer;
+export class HereLayerListAction {
+  readonly type = HereLayerListActions.Reorder;
+  constructor(public payload: HereLayer[]) {}
+}
+
+export type HereLayerActionType = HereLayerCrudAction | HereLayerListAction;

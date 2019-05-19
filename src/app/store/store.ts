@@ -1,7 +1,11 @@
 import { HereLayer } from '../models/here-layer.model';
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HereLayerAction, HereLayerActions } from './actions';
+import {
+  HereLayerActionType,
+  HereLayerCrudActions,
+  HereLayerListActions
+} from './actions';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
@@ -9,30 +13,34 @@ export class Store {
 
   state$ = this.store.asObservable();
 
-  dispatch(action: HereLayerAction) {
+  dispatch(action: HereLayerActionType) {
     const state = this.reduce(this.store.value, action);
 
     this.store.next(state);
   }
 
-  private reduce(state: HereLayer[], action: HereLayerAction): HereLayer[] {
+  private reduce(state: HereLayer[], action: HereLayerActionType): HereLayer[] {
     switch (action.type) {
-      case HereLayerActions.AddLayer: {
+      case HereLayerCrudActions.AddLayer: {
         return [...state, action.payload];
       }
-      case HereLayerActions.RemoveLayer: {
+      case HereLayerCrudActions.RemoveLayer: {
         const updatedState = state.filter(
           layer => layer.id !== action.payload.id
         );
         return [...updatedState];
       }
 
-      case HereLayerActions.UpdateLayer: {
+      case HereLayerCrudActions.UpdateLayer: {
         const updatedState = state.map(layer =>
           layer.id === action.payload.id ? action.payload : layer
         );
 
         return [...updatedState];
+      }
+
+      case HereLayerListActions.Reorder: {
+        return [...action.payload];
       }
 
       default:

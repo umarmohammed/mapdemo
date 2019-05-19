@@ -8,10 +8,15 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HereLayer } from 'src/app/models/here-layer.model';
-import { HereLayerAction, HereLayerActions } from 'src/app/store/actions';
+import {
+  HereLayerActionType,
+  HereLayerCrudActions,
+  HereLayerListActions
+} from 'src/app/store/actions';
 import { AddHereLayerDialogComponent } from '../add-here-layer-dialog/add-here-layer-dialog.component';
 import { Subscription } from 'rxjs';
 import { LayerService } from 'src/app/services/layer.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-here-layer-manager',
@@ -23,7 +28,7 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
   toggleNav = new EventEmitter();
 
   @Output()
-  layerEvent = new EventEmitter<HereLayerAction>();
+  layerEvent = new EventEmitter<HereLayerActionType>();
 
   @Input()
   layers: HereLayer[];
@@ -41,13 +46,13 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
 
     this.sub = dialogRef.afterClosed().subscribe(payload => {
       if (payload) {
-        this.layerEvent.emit({ payload, type: HereLayerActions.AddLayer });
+        this.layerEvent.emit({ payload, type: HereLayerCrudActions.AddLayer });
       }
     });
   }
 
   removeLayer(payload: HereLayer) {
-    this.layerEvent.emit({ payload, type: HereLayerActions.RemoveLayer });
+    this.layerEvent.emit({ payload, type: HereLayerCrudActions.RemoveLayer });
   }
 
   updateLayer(layer: HereLayer, property: string, value: any) {
@@ -56,7 +61,13 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
       [property]: value
     };
 
-    this.layerEvent.emit({ payload, type: HereLayerActions.UpdateLayer });
+    this.layerEvent.emit({ payload, type: HereLayerCrudActions.UpdateLayer });
+  }
+
+  reorderLayers(event: CdkDragDrop<HereLayer[]>) {
+    const payload = [...this.layers];
+    moveItemInArray(payload, event.previousIndex, event.currentIndex);
+    this.layerEvent.emit({ payload, type: HereLayerListActions.Reorder });
   }
 
   ngOnDestroy(): void {
