@@ -43,3 +43,5 @@ testem.log
 Thumbs.db
 src/here-map.credentials.ts
 src/firebase.config.ts
+.firebase/hosting.ZGlzdFxtYXBkZW1v.cache
+firebase-debug.log

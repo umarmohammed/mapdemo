@@ -38,18 +38,20 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <p class="opacity-text">Opacity</p>
-      <p class="opacity-value">{{ layer.opacity }}</p>
-      <mat-slider
-        [max]="100"
-        [min]="0"
-        [step]="1"
-        [thumbLabel]="true"
-        [value]="layer.opacity"
-        (change)="updateLayer(layer, 'opacity', $event.value)"
-        class="opacity-slider"
-      >
-      </mat-slider>
+      <div class="opacity-container">
+        <p class="opacity-text">Opacity</p>
+        <mat-slider
+          [max]="100"
+          [min]="0"
+          [step]="1"
+          [thumbLabel]="true"
+          [value]="layer.opacity"
+          (change)="updateLayer(layer, 'opacity', $event.value)"
+          class="opacity-slider"
+        >
+        </mat-slider>
+        <p class="opacity-text">{{ layer.opacity }}</p>
+      </div>
     </mat-card-content>
     <mat-card-actions>
       <button (click)="removeLayer(layer)" mat-button color="warn">
