@@ -42,3 +42,4 @@ testem.log
 .DS_Store
 Thumbs.db
 src/here-map.credentials.ts
+src/firebase.config.ts

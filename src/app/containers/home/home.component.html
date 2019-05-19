@@ -3,7 +3,7 @@
     <app-here-layer-manager
       (layerEvent)="store.dispatch($event)"
       (toggleNav)="sidenav.toggle()"
-      [layers]="store.state$ | async"
+      [layers]="store.layers$ | async"
     ></app-here-layer-manager>
   </mat-sidenav>
 
