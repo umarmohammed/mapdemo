@@ -1,13 +1,12 @@
+import { hereCredentials } from 'src/here-map.credentials';
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
   production: false,
-  hereCredentials: {
-    app_id: '174bSJVz4Udf1Wk4xmpG',
-    app_code: 'CWHmug8fv75vYfUPHCqprA'
-  }
+  hereCredentials
 };
 
 /*
