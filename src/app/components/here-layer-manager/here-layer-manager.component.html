@@ -18,20 +18,37 @@
     {{ layer.tile.name }}
   </mat-card-title>
   <mat-card-content>
-    <p>Scheme: {{ layer.scheme }}</p>
-    <p>Opacity: {{ layer.opacity }}</p>
+    <mat-form-field class="layer-form-field">
+      <mat-label>Scheme</mat-label>
+      <mat-select
+        [value]="layer.scheme"
+        (selectionChange)="updateLayer(layer, 'scheme', $event.value)"
+      >
+        <mat-option *ngFor="let scheme of options.schemes" [value]="scheme">
+          {{ scheme }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <p class="opacity-text">Opacity</p>
+    <p class="opacity-value">{{ layer.opacity }}</p>
+    <mat-slider
+      [max]="100"
+      [min]="0"
+      [step]="1"
+      [thumbLabel]="true"
+      [value]="layer.opacity"
+      (change)="updateLayer(layer, 'opacity', $event.value)"
+      class="opacity-slider"
+    >
+    </mat-slider>
   </mat-card-content>
   <mat-card-actions>
-    <button
-      (click)="emitAction(layer, actionTypes.RemoveLayer)"
-      mat-button
-      color="warn"
-    >
+    <button (click)="removeLayer(layer)" mat-button color="warn">
       Remove
     </button>
     <mat-checkbox
       [checked]="layer.visible"
-      (change)="emitAction(layer, actionTypes.ToggleVisibility)"
+      (change)="updateLayer(layer, 'visible', $event.checked)"
       class="card-check-box"
     ></mat-checkbox>
   </mat-card-actions>

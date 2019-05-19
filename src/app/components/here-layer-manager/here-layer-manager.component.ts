@@ -8,13 +8,10 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HereLayer } from 'src/app/models/here-layer.model';
-import {
-  HereLayerAction,
-  HereLayerActions,
-  HereLayerActionType
-} from 'src/app/store/actions';
+import { HereLayerAction, HereLayerActions } from 'src/app/store/actions';
 import { AddHereLayerDialogComponent } from '../add-here-layer-dialog/add-here-layer-dialog.component';
 import { Subscription } from 'rxjs';
+import { LayerService } from 'src/app/services/layer.service';
 
 @Component({
   selector: 'app-here-layer-manager',
@@ -33,29 +30,33 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
 
   sub: Subscription;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public options: LayerService) {}
 
   ngOnInit() {}
-
-  get actionTypes() {
-    return HereLayerActions;
-  }
 
   addLayer() {
     let dialogRef = this.dialog.open(AddHereLayerDialogComponent, {
       width: '600px'
     });
 
-    this.sub = dialogRef.afterClosed().subscribe(layer => {
-      if (layer)
-        this.layerEvent.emit(
-          new HereLayerAction(HereLayerActions.AddLayer, layer)
-        );
+    this.sub = dialogRef.afterClosed().subscribe(payload => {
+      if (payload) {
+        this.layerEvent.emit({ payload, type: HereLayerActions.AddLayer });
+      }
     });
   }
 
-  emitAction(layer: HereLayer, action: HereLayerActionType) {
-    this.layerEvent.emit(new HereLayerAction(action, layer));
+  removeLayer(payload: HereLayer) {
+    this.layerEvent.emit({ payload, type: HereLayerActions.RemoveLayer });
+  }
+
+  updateLayer(layer: HereLayer, property: string, value: any) {
+    const payload = {
+      ...layer,
+      [property]: value
+    };
+
+    this.layerEvent.emit({ payload, type: HereLayerActions.UpdateLayer });
   }
 
   ngOnDestroy(): void {
