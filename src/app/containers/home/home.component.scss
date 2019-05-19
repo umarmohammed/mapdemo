@@ -10,6 +10,10 @@
 
 .side-nav {
   width: $sidenav-width;
+
+  @media screen and (max-width: 450px) {
+    width: 100%;
+  }
 }
 
 .mat-drawer:not(.mat-drawer-side) {

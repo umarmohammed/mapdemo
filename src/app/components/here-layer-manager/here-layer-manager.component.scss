@@ -18,19 +18,16 @@
 }
 
 .opacity-slider {
-  width: 75%;
-  left: 50px;
+  margin-right: 5px;
+  flex-grow: 1;
 }
 
-.opacity-value {
-  position: absolute;
-  right: 0;
-  padding-right: 16px;
-  padding-top: 2px;
+.opacity-container {
+  display: flex;
 }
 
 .opacity-text {
-  position: absolute;
+  padding-top: 1px;
 }
 
 .layer-form-field {
