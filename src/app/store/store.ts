@@ -7,9 +7,7 @@ import { HereLayerAction, HereLayerActions } from './actions';
 export class Store {
   private store: BehaviorSubject<HereLayer[]> = new BehaviorSubject([]);
 
-  get state$() {
-    return this.store.asObservable();
-  }
+  state$ = this.store.asObservable();
 
   dispatch(action: HereLayerAction) {
     const state = this.reduce(this.store.value, action);
@@ -23,25 +21,17 @@ export class Store {
         return [...state, action.payload];
       }
       case HereLayerActions.RemoveLayer: {
-        const updatedState = state.filter(layer => layer !== action.payload);
+        const updatedState = state.filter(
+          layer => layer.id !== action.payload.id
+        );
         return [...updatedState];
       }
 
-      case HereLayerActions.ToggleVisibility: {
-        const updatedState = state.map(layer => {
-          if (layer === action.payload) {
-            console.log('toggle ', layer);
-            console.log('not ', !layer.visible);
-            return {
-              ...action.payload,
-              visible: !layer.visible
-            };
-          }
+      case HereLayerActions.UpdateLayer: {
+        const updatedState = state.map(layer =>
+          layer.id === action.payload.id ? action.payload : layer
+        );
 
-          return layer;
-        });
-
-        console.log(updatedState);
         return [...updatedState];
       }
 

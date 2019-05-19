@@ -13,10 +13,5 @@ export const schemes = [
   'normal.day.transit.mobile',
   'normal.night.mobile',
   'normal.night.grey.mobile',
-  'reduced.day',
-  'terrain.day',
-  'satellite.day',
-  'hybrid.day',
-  'terrain.day.mobile',
-  'hybrid.day.mobile'
+  'reduced.day'
 ];

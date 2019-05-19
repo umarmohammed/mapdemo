@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LayerService } from 'src/app/services/layer.service';
 import { HereLayer } from 'src/app/models/here-layer.model';
+import { GuidService } from 'src/app/services/guid.service';
 
 @Component({
   selector: 'app-here-layer-dialog',
@@ -13,13 +14,14 @@ export class AddHereLayerDialogComponent implements OnInit {
   addHereLayerForm = this.fb.group({
     scheme: ['', Validators.required],
     tile: ['', Validators.required],
-    opacity: ['100']
+    opacity: ['100', Validators.required]
   });
 
   constructor(
     public dialogRef: MatDialogRef<AddHereLayerDialogComponent>,
     public options: LayerService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private guid: GuidService
   ) {}
 
   ngOnInit() {}
@@ -29,7 +31,8 @@ export class AddHereLayerDialogComponent implements OnInit {
 
     const hereLayer: HereLayer = {
       ...this.addHereLayerForm.value,
-      visible: true
+      visible: true,
+      id: this.guid.newGuid()
     };
 
     this.dialogRef.close(hereLayer);
