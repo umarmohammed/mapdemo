@@ -13,43 +13,53 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-card *ngFor="let layer of layers" class="layer-info-card">
-  <mat-card-title>
-    {{ layer.tile.name }}
-  </mat-card-title>
-  <mat-card-content>
-    <mat-form-field class="layer-form-field">
-      <mat-label>Scheme</mat-label>
-      <mat-select
-        [value]="layer.scheme"
-        (selectionChange)="updateLayer(layer, 'scheme', $event.value)"
+<div cdkDropList (cdkDropListDropped)="reorderLayers($event)">
+  <mat-card *ngFor="let layer of layers" cdkDrag class="layer-info-card">
+    <div class="layer-drag-handle" cdkDragHandle>
+      <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+        ></path>
+        <path d="M0 0h24v24H0z" fill="none"></path>
+      </svg>
+    </div>
+    <mat-card-title>
+      {{ layer.tile.name }}
+    </mat-card-title>
+    <mat-card-content>
+      <mat-form-field class="layer-form-field">
+        <mat-label>Scheme</mat-label>
+        <mat-select
+          [value]="layer.scheme"
+          (selectionChange)="updateLayer(layer, 'scheme', $event.value)"
+        >
+          <mat-option *ngFor="let scheme of options.schemes" [value]="scheme">
+            {{ scheme }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <p class="opacity-text">Opacity</p>
+      <p class="opacity-value">{{ layer.opacity }}</p>
+      <mat-slider
+        [max]="100"
+        [min]="0"
+        [step]="1"
+        [thumbLabel]="true"
+        [value]="layer.opacity"
+        (change)="updateLayer(layer, 'opacity', $event.value)"
+        class="opacity-slider"
       >
-        <mat-option *ngFor="let scheme of options.schemes" [value]="scheme">
-          {{ scheme }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <p class="opacity-text">Opacity</p>
-    <p class="opacity-value">{{ layer.opacity }}</p>
-    <mat-slider
-      [max]="100"
-      [min]="0"
-      [step]="1"
-      [thumbLabel]="true"
-      [value]="layer.opacity"
-      (change)="updateLayer(layer, 'opacity', $event.value)"
-      class="opacity-slider"
-    >
-    </mat-slider>
-  </mat-card-content>
-  <mat-card-actions>
-    <button (click)="removeLayer(layer)" mat-button color="warn">
-      Remove
-    </button>
-    <mat-checkbox
-      [checked]="layer.visible"
-      (change)="updateLayer(layer, 'visible', $event.checked)"
-      class="card-check-box"
-    ></mat-checkbox>
-  </mat-card-actions>
-</mat-card>
+      </mat-slider>
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="removeLayer(layer)" mat-button color="warn">
+        Remove
+      </button>
+      <mat-checkbox
+        [checked]="layer.visible"
+        (change)="updateLayer(layer, 'visible', $event.checked)"
+        class="card-check-box"
+      ></mat-checkbox>
+    </mat-card-actions>
+  </mat-card>
+</div>

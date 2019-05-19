@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const materialModules = [
   MatButtonModule,
@@ -20,7 +21,8 @@ const materialModules = [
   MatCardModule,
   MatCheckboxModule,
   MatSliderModule,
-  MatInputModule
+  MatInputModule,
+  DragDropModule
 ];
 
 @NgModule({
