@@ -50,8 +50,8 @@ export class MapComponent implements OnInit, OnDestroy {
       layers.map(layer =>
         this.mapLayers.push(this.layerService.createOlTileLayer(layer))
       );
+      this.mapLayers.push(this.layerService.lineVectorLayer);
       this.mapLayers.forEach(layer => this.map.addLayer(layer));
-      this.map.render();
     }
   }
 

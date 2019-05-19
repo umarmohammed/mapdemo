@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
-import TileLayer from 'ol/layer/Tile';
-import XYZ from 'ol/source/XYZ';
+
 import { HereLayer } from '../models/here-layer.model';
 import { environment } from 'src/environments/environment';
 import { BaseMapTile } from '../models/base-map-tile.model';
-import { baseMapTiles } from '../constants/base-map-tiles';
-import { schemes } from '../constants/schemes';
+
+import { schemes, points, baseMapTiles } from '../constants';
+
+import TileLayer from 'ol/layer/Tile';
+import Layer from 'ol/layer/Vector';
+import Source from 'ol/source/Vector';
+import XYZ from 'ol/source/XYZ';
+import Feature from 'ol/Feature';
+import { fromLonLat } from 'ol/proj';
+import Style from 'ol/style/Style';
+import Stroke from 'ol/style/Stroke';
+import LineString from 'ol/geom/LineString';
 
 @Injectable({ providedIn: 'root' })
 export class LayerService {
@@ -31,6 +40,30 @@ export class LayerService {
 
   get schemes(): string[] {
     return schemes;
+  }
+
+  get lineVectorLayer() {
+    const coordinates = points.map(point => fromLonLat([point[0], point[1]]));
+
+    return new Layer({
+      source: new Source({
+        features: [
+          new Feature({
+            geometry: new LineString(coordinates)
+          })
+        ]
+      }),
+      style: [
+        new Style({
+          stroke: new Stroke({
+            width: 3,
+            lineDash: [4, 8],
+            color: 'rgba(0, 0, 255, 1)'
+          }),
+          zIndex: 2
+        })
+      ]
+    });
   }
 
   private createUrl(hereLayer: HereLayer) {
