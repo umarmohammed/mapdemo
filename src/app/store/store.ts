@@ -1,5 +1,4 @@
 import { HereLayer } from '../models/here-layer.model';
-import { pluck } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import {
@@ -7,19 +6,22 @@ import {
   HereLayerCrudActions,
   HereLayerListActions
 } from './actions';
-import { State } from './state';
 import { BehaviorSubject } from 'rxjs';
+import { StorageService } from '../services/storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
-  constructor() {}
+  constructor(private storage: StorageService) {}
 
-  private store: BehaviorSubject<HereLayer[]> = new BehaviorSubject([]);
+  private store: BehaviorSubject<HereLayer[]> = new BehaviorSubject(
+    this.storage.layers
+  );
 
   layers$ = this.store.asObservable();
 
   dispatch(action: HereLayerActionType) {
     const state = this.reduce(this.store.value, action);
+    this.storage.layers = state;
     this.store.next(state);
   }
 
