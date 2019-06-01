@@ -3,15 +3,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppComponent } from './app.component';
 import * as fromComponents from './components';
 import * as fromContainers from './containers';
 
 import { MaterialModule } from 'src/material/material.module';
-import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -25,9 +22,7 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    MaterialModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent],

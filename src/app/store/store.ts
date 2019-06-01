@@ -1,7 +1,6 @@
 import { HereLayer } from '../models/here-layer.model';
 import { pluck } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 import {
   HereLayerActionType,
@@ -9,28 +8,19 @@ import {
   HereLayerListActions
 } from './actions';
 import { State } from './state';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class Store {
-  private stateDoc = this.afs.doc<State>('states/demo');
+  constructor() {}
 
-  constructor(private afs: AngularFirestore) {}
+  private store: BehaviorSubject<HereLayer[]> = new BehaviorSubject([]);
 
-  layers$ = this.stateDoc
-    .valueChanges()
-    .pipe(pluck<State, HereLayer[]>('layers'));
+  layers$ = this.store.asObservable();
 
   dispatch(action: HereLayerActionType) {
-    this.stateDoc
-      .get()
-      .toPromise()
-      .then(value => {
-        if (value.exists) {
-          const layersInDb = (value.data() as State).layers;
-          const layers = this.reduce(layersInDb, action);
-          this.stateDoc.set({ layers });
-        }
-      });
+    const state = this.reduce(this.store.value, action);
+    this.store.next(state);
   }
 
   private reduce(state: HereLayer[], action: HereLayerActionType): HereLayer[] {
