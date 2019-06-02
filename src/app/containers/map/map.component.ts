@@ -6,8 +6,7 @@ import {
   OnDestroy
 } from '@angular/core';
 
-import Map from 'ol/map';
-import View from 'ol/View';
+import { Map, View } from 'ol';
 import { LayerService } from 'src/app/services/layer.service';
 import { Store } from 'src/app/store/store';
 import { HereLayer } from 'src/app/models/here-layer.model';

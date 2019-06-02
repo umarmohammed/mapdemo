@@ -6,22 +6,19 @@ import { BaseMapTile } from '../models/base-map-tile.model';
 
 import { schemes, points, baseMapTiles } from '../constants';
 
-import TileLayer from 'ol/layer/Tile';
-import Layer from 'ol/layer/Vector';
-import Source from 'ol/source/Vector';
-import XYZ from 'ol/source/XYZ';
-import Feature from 'ol/Feature';
+import { Feature } from 'ol';
+import * as layer from 'ol/layer';
+import * as source from 'ol/source';
 import { fromLonLat } from 'ol/proj';
-import Style from 'ol/style/Style';
-import Stroke from 'ol/style/Stroke';
-import LineString from 'ol/geom/LineString';
+import { Stroke, Style } from 'ol/style';
+import { LineString } from 'ol/geom';
 
 @Injectable({ providedIn: 'root' })
 export class LayerService {
-  createOlTileLayer(hereLayer: HereLayer): TileLayer {
-    return new TileLayer({
+  createOlTileLayer(hereLayer: HereLayer): layer.Tile {
+    return new layer.Tile({
       preload: Infinity,
-      source: new XYZ({
+      source: new source.XYZ({
         url: this.createUrl(hereLayer),
         attributions:
           'Map Tiles &copy; ' +
@@ -45,8 +42,8 @@ export class LayerService {
   get lineVectorLayer() {
     const coordinates = points.map(point => fromLonLat([point[0], point[1]]));
 
-    return new Layer({
-      source: new Source({
+    return new layer.Vector({
+      source: new source.Vector({
         features: [
           new Feature({
             geometry: new LineString(coordinates)
