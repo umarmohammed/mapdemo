@@ -17,6 +17,7 @@ import { AddHereLayerDialogComponent } from '../add-here-layer-dialog/add-here-l
 import { Subscription } from 'rxjs';
 import { LayerService } from 'src/app/services/layer.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-here-layer-manager',
@@ -68,6 +69,19 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
     const payload = [...this.layers];
     moveItemInArray(payload, event.previousIndex, event.currentIndex);
     this.layerEvent.emit({ payload, type: HereLayerListActions.Reorder });
+  }
+
+  onFileSelected(fileInput: HTMLInputElement) {
+    if (fileInput.files && fileInput.files.length) {
+      const fileReader = new FileReader();
+      fileReader.readAsText(fileInput.files.item(0));
+      fileReader.onload = () => this.loadScenario(fileReader.result as string);
+      fileInput.value = '';
+    }
+  }
+
+  loadScenario(value: string) {
+    const route: Route = JSON.parse(value);
   }
 
   ngOnDestroy(): void {

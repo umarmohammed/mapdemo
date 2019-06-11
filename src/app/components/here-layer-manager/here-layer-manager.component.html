@@ -10,6 +10,16 @@
     <button (click)="addLayer()" mat-flat-button color="primary">
       Add layer
     </button>
+    <button (click)="fileInput.click()" mat-flat-button color="primary">
+      Load scenario
+    </button>
+    <input
+      hidden
+      (change)="onFileSelected(fileInput)"
+      #fileInput
+      type="file"
+      id="file"
+    />
   </mat-toolbar-row>
 </mat-toolbar>
 
