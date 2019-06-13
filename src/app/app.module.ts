@@ -9,6 +9,8 @@ import * as fromComponents from './components';
 import * as fromContainers from './containers';
 
 import { MaterialModule } from 'src/material/material.module';
+import { StoreModule } from '@ngrx/store';
+import { reducer, metaReducers } from './store/reducers';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { MaterialModule } from 'src/material/material.module';
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    StoreModule.forRoot({ layers: reducer }, { metaReducers })
   ],
   providers: [],
   bootstrap: [AppComponent],

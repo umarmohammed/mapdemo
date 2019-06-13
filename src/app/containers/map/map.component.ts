@@ -8,9 +8,11 @@ import {
 
 import { Map, View } from 'ol';
 import { LayerService } from 'src/app/services/layer.service';
-import { Store } from 'src/app/store/store';
 import { HereLayer } from 'src/app/models/here-layer.model';
 import { Subscription } from 'rxjs';
+
+import * as fromStore from '../../store';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-map',
@@ -26,7 +28,10 @@ export class MapComponent implements OnInit, OnDestroy {
 
   mapLayers: any[] = []; // temp hack to get map deleting to work
 
-  constructor(private layerService: LayerService, private store: Store) {}
+  constructor(
+    private layerService: LayerService,
+    private store: Store<fromStore.State>
+  ) {}
 
   ngOnInit() {
     this.map = new Map({
@@ -38,7 +43,9 @@ export class MapComponent implements OnInit, OnDestroy {
       })
     });
 
-    this.store.layers$.subscribe(layers => this.updateLayers(layers));
+    this.store
+      .pipe(select(fromStore.selectLayers))
+      .subscribe(layers => this.updateLayers(layers));
   }
 
   updateLayers(layers: HereLayer[]) {
