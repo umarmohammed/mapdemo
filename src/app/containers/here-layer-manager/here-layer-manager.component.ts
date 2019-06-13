@@ -3,20 +3,17 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  Input,
   OnDestroy
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HereLayer } from 'src/app/models/here-layer.model';
-import {
-  HereLayerActionType,
-  HereLayerCrudActions,
-  HereLayerListActions
-} from 'src/app/store/actions';
-import { AddHereLayerDialogComponent } from '../add-here-layer-dialog/add-here-layer-dialog.component';
+import { AddHereLayerDialogComponent } from '../../components/add-here-layer-dialog/add-here-layer-dialog.component';
 import { Subscription } from 'rxjs';
 import { LayerService } from 'src/app/services/layer.service';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+
+import * as fromStore from '../../store';
+import { Store, select } from '@ngrx/store';
 import { Route } from '@angular/compiler/src/core';
 
 @Component({
@@ -28,15 +25,14 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
   @Output()
   toggleNav = new EventEmitter();
 
-  @Output()
-  layerEvent = new EventEmitter<HereLayerActionType>();
-
-  @Input()
-  layers: HereLayer[];
-
   sub: Subscription;
+  layers$ = this.store.pipe(select(fromStore.selectLayers));
 
-  constructor(public dialog: MatDialog, public options: LayerService) {}
+  constructor(
+    public dialog: MatDialog,
+    public options: LayerService,
+    private store: Store<fromStore.State>
+  ) {}
 
   ngOnInit() {}
 
@@ -45,30 +41,28 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
       width: '600px'
     });
 
-    this.sub = dialogRef.afterClosed().subscribe(payload => {
-      if (payload) {
-        this.layerEvent.emit({ payload, type: HereLayerCrudActions.AddLayer });
+    this.sub = dialogRef.afterClosed().subscribe((layer: HereLayer) => {
+      if (layer) {
+        this.store.dispatch(fromStore.addLayer({ layer }));
       }
     });
   }
 
-  removeLayer(payload: HereLayer) {
-    this.layerEvent.emit({ payload, type: HereLayerCrudActions.RemoveLayer });
+  removeLayer(layer: HereLayer) {
+    this.store.dispatch(fromStore.removeLayer({ layer }));
   }
 
   updateLayer(layer: HereLayer, property: string, value: any) {
-    const payload = {
+    layer = {
       ...layer,
       [property]: value
     };
 
-    this.layerEvent.emit({ payload, type: HereLayerCrudActions.UpdateLayer });
+    this.store.dispatch(fromStore.updateLayer({ layer }));
   }
 
   reorderLayers(event: CdkDragDrop<HereLayer[]>) {
-    const payload = [...this.layers];
-    moveItemInArray(payload, event.previousIndex, event.currentIndex);
-    this.layerEvent.emit({ payload, type: HereLayerListActions.Reorder });
+    this.store.dispatch(fromStore.reorderLayers(event));
   }
 
   onFileSelected(fileInput: HTMLInputElement) {

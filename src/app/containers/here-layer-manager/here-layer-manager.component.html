@@ -24,7 +24,11 @@
 </mat-toolbar>
 
 <div cdkDropList (cdkDropListDropped)="reorderLayers($event)">
-  <mat-card *ngFor="let layer of layers" cdkDrag class="layer-info-card">
+  <mat-card
+    *ngFor="let layer of layers$ | async"
+    cdkDrag
+    class="layer-info-card"
+  >
     <div class="layer-drag-handle" cdkDragHandle>
       <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
         <path
