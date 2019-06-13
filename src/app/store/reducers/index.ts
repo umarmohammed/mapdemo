@@ -14,7 +14,7 @@ export const selectLayers = createSelector(
   (state: fromLayers.State) => (state ? state.layers : [])
 );
 
-function localStorageSyncReducer(
+export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
   return localStorageSync({ keys: ['layers'], rehydrate: true })(reducer);
