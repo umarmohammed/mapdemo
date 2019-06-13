@@ -1,9 +1,4 @@
 import { AddHereLayerDialogComponent } from './add-here-layer-dialog/add-here-layer-dialog.component';
-import { HereLayerManagerComponent } from './here-layer-manager/here-layer-manager.component';
-
-export const components = [
-  AddHereLayerDialogComponent,
-  HereLayerManagerComponent
-];
+export const components = [AddHereLayerDialogComponent];
 
 export * from './add-here-layer-dialog/add-here-layer-dialog.component';
