@@ -10,7 +10,7 @@ import * as fromContainers from './containers';
 
 import { MaterialModule } from 'src/material/material.module';
 import { StoreModule } from '@ngrx/store';
-import { reducer, metaReducers } from './store/reducers';
+import { reducers, metaReducers } from './store/reducers';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { reducer, metaReducers } from './store/reducers';
     FormsModule,
     CommonModule,
     MaterialModule,
-    StoreModule.forRoot({ layers: reducer }, { metaReducers })
+    StoreModule.forRoot(reducers, { metaReducers })
   ],
   providers: [],
   bootstrap: [AppComponent],

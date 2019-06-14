@@ -7,9 +7,6 @@
     </button>
   </mat-toolbar-row>
   <mat-toolbar-row>
-    <button (click)="addLayer()" mat-flat-button color="primary">
-      Add layer
-    </button>
     <button (click)="fileInput.click()" mat-flat-button color="primary">
       Load scenario
     </button>
@@ -23,59 +20,80 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<div cdkDropList (cdkDropListDropped)="reorderLayers($event)">
-  <mat-card
-    *ngFor="let layer of layers$ | async"
-    cdkDrag
-    class="layer-info-card"
-  >
-    <div class="layer-drag-handle" cdkDragHandle>
-      <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
-        <path
-          d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
-        ></path>
-        <path d="M0 0h24v24H0z" fill="none"></path>
-      </svg>
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Layers
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div
+      cdkDropList
+      (cdkDropListDropped)="reorderLayers($event)"
+      class="layers-list"
+    >
+      <mat-card
+        *ngFor="let layer of layers$ | async"
+        cdkDrag
+        class="layer-info-card"
+      >
+        <div class="layer-drag-handle" cdkDragHandle>
+          <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+            ></path>
+            <path d="M0 0h24v24H0z" fill="none"></path>
+          </svg>
+        </div>
+        <mat-card-title>
+          {{ layer.tile.name }}
+        </mat-card-title>
+        <mat-card-content>
+          <mat-form-field class="layer-form-field">
+            <mat-label>Scheme</mat-label>
+            <mat-select
+              [value]="layer.scheme"
+              (selectionChange)="updateLayer(layer, 'scheme', $event.value)"
+            >
+              <mat-option
+                *ngFor="let scheme of options.schemes"
+                [value]="scheme"
+              >
+                {{ scheme }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="opacity-container">
+            <p class="opacity-text">Opacity</p>
+            <mat-slider
+              [max]="100"
+              [min]="0"
+              [step]="1"
+              [thumbLabel]="true"
+              [value]="layer.opacity"
+              (change)="updateLayer(layer, 'opacity', $event.value)"
+              class="opacity-slider"
+            >
+            </mat-slider>
+            <p class="opacity-text">{{ layer.opacity }}</p>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button (click)="removeLayer(layer)" mat-button color="warn">
+            Remove
+          </button>
+          <mat-checkbox
+            [checked]="layer.visible"
+            (change)="updateLayer(layer, 'visible', $event.checked)"
+            class="card-check-box"
+          ></mat-checkbox>
+        </mat-card-actions>
+      </mat-card>
     </div>
-    <mat-card-title>
-      {{ layer.tile.name }}
-    </mat-card-title>
-    <mat-card-content>
-      <mat-form-field class="layer-form-field">
-        <mat-label>Scheme</mat-label>
-        <mat-select
-          [value]="layer.scheme"
-          (selectionChange)="updateLayer(layer, 'scheme', $event.value)"
-        >
-          <mat-option *ngFor="let scheme of options.schemes" [value]="scheme">
-            {{ scheme }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div class="opacity-container">
-        <p class="opacity-text">Opacity</p>
-        <mat-slider
-          [max]="100"
-          [min]="0"
-          [step]="1"
-          [thumbLabel]="true"
-          [value]="layer.opacity"
-          (change)="updateLayer(layer, 'opacity', $event.value)"
-          class="opacity-slider"
-        >
-        </mat-slider>
-        <p class="opacity-text">{{ layer.opacity }}</p>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button (click)="removeLayer(layer)" mat-button color="warn">
-        Remove
+    <mat-action-row>
+      <button (click)="addLayer()" mat-flat-button color="primary">
+        Add layer
       </button>
-      <mat-checkbox
-        [checked]="layer.visible"
-        (change)="updateLayer(layer, 'visible', $event.checked)"
-        class="card-check-box"
-      ></mat-checkbox>
-    </mat-card-actions>
-  </mat-card>
-</div>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

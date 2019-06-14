@@ -1,14 +1,18 @@
 {
-  "stops": [
-    { "longitude": -0.911915, "latitude": 52.212493 },
-    { "longitude": -1.132761, "latitude": 52.479648 },
-    { "longitude": -0.672242, "latitude": 52.538038 },
-    { "longitude": -0.403833, "latitude": 52.308787 },
-    { "longitude": 0.101254, "latitude": 52.406593 },
-    { "longitude": -0.071314, "latitude": 52.089702 },
-    { "longitude": -0.771021, "latitude": 51.894308 },
-    { "longitude": -1.366136, "latitude": 52.004764 },
-    { "longitude": -1.395831, "latitude": 52.383598 },
-    { "longitude": -0.911915, "latitude": 52.212493 }
+  "routes": [
+    {
+      "stops": [
+        { "longitude": -0.911915, "latitude": 52.212493 },
+        { "longitude": -1.132761, "latitude": 52.479648 },
+        { "longitude": -0.672242, "latitude": 52.538038 },
+        { "longitude": -0.403833, "latitude": 52.308787 },
+        { "longitude": 0.101254, "latitude": 52.406593 },
+        { "longitude": -0.071314, "latitude": 52.089702 },
+        { "longitude": -0.771021, "latitude": 51.894308 },
+        { "longitude": -1.366136, "latitude": 52.004764 },
+        { "longitude": -1.395831, "latitude": 52.383598 },
+        { "longitude": -0.911915, "latitude": 52.212493 }
+      ]
+    }
   ]
 }

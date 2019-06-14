@@ -43,3 +43,12 @@
   width: 24px;
   height: 24px;
 }
+
+.layers-list {
+  height: calc(100vh - 261px);
+  overflow: auto;
+}
+
+::ng-deep div.mat-expansion-panel-body {
+  padding: 0;
+}

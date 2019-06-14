@@ -9,12 +9,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { HereLayer } from 'src/app/models/here-layer.model';
 import { AddHereLayerDialogComponent } from '../../components/add-here-layer-dialog/add-here-layer-dialog.component';
 import { Subscription } from 'rxjs';
-import { LayerService } from 'src/app/services/layer.service';
+import { LayerOptions } from 'src/app/services/layer-options.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 import * as fromStore from '../../store';
 import { Store, select } from '@ngrx/store';
-import { Route } from '@angular/compiler/src/core';
+import { Scenario } from 'src/app/models/scenario.model';
 
 @Component({
   selector: 'app-here-layer-manager',
@@ -30,7 +30,7 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
-    public options: LayerService,
+    public options: LayerOptions,
     private store: Store<fromStore.State>
   ) {}
 
@@ -75,7 +75,8 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
   }
 
   loadScenario(value: string) {
-    const route: Route = JSON.parse(value);
+    const scenario: Scenario = JSON.parse(value);
+    this.store.dispatch(fromStore.loadRoutes({ routes: scenario.routes }));
   }
 
   ngOnDestroy(): void {

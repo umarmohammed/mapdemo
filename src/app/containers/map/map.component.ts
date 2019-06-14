@@ -7,12 +7,12 @@ import {
 } from '@angular/core';
 
 import { Map, View } from 'ol';
-import { LayerService } from 'src/app/services/layer.service';
-import { HereLayer } from 'src/app/models/here-layer.model';
 import { Subscription } from 'rxjs';
 
 import * as fromStore from '../../store';
 import { Store, select } from '@ngrx/store';
+import TileLayer from 'ol/layer/Tile';
+import { Vector } from 'ol/layer';
 
 @Component({
   selector: 'app-map',
@@ -26,12 +26,10 @@ export class MapComponent implements OnInit, OnDestroy {
   @Output()
   toggleNav = new EventEmitter();
 
-  mapLayers: any[] = []; // temp hack to get map deleting to work
+  tileLayers = [];
+  lineVectorLayers = [];
 
-  constructor(
-    private layerService: LayerService,
-    private store: Store<fromStore.State>
-  ) {}
+  constructor(private store$: Store<fromStore.State>) {}
 
   ngOnInit() {
     this.map = new Map({
@@ -43,25 +41,34 @@ export class MapComponent implements OnInit, OnDestroy {
       })
     });
 
-    this.store
-      .pipe(select(fromStore.selectLayers))
-      .subscribe(layers => this.updateLayers(layers));
+    this.sub = this.store$
+      .pipe(select(fromStore.selectOlTileLayers))
+      .subscribe(layers => this.updateLayers(layers, this.lineVectorLayers));
+
+    this.store$
+      .pipe(select(fromStore.selectLineVectorLayers))
+      .subscribe(routes => this.updateLayers(this.tileLayers, routes));
   }
 
-  updateLayers(layers: HereLayer[]) {
+  updateLayers(layers: TileLayer[], lineVectorLayers: Vector[]) {
     if (this.map) {
-      this.mapLayers.forEach(layer => this.map.removeLayer(layer));
-      this.mapLayers = [];
+      this.tileLayers.forEach(layer => this.map.removeLayer(layer));
+      this.tileLayers = [];
 
-      layers.map(layer =>
-        this.mapLayers.push(this.layerService.createOlTileLayer(layer))
-      );
-      this.mapLayers.push(this.layerService.lineVectorLayer);
-      this.mapLayers.forEach(layer => this.map.addLayer(layer));
+      layers.forEach(layer => this.tileLayers.push(layer));
+      this.tileLayers.forEach(layer => this.map.addLayer(layer));
+
+      this.lineVectorLayers.forEach(layer => this.map.removeLayer(layer));
+      this.lineVectorLayers = [];
+
+      lineVectorLayers.forEach(layer => this.lineVectorLayers.push(layer));
+      this.lineVectorLayers.forEach(layer => this.map.addLayer(layer));
     }
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }
