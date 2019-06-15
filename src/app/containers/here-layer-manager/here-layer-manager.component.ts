@@ -9,11 +9,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { HereLayer } from 'src/app/models/here-layer.model';
 import { AddHereLayerDialogComponent } from '../../components/add-here-layer-dialog/add-here-layer-dialog.component';
 import { Subscription } from 'rxjs';
-import { LayerService } from 'src/app/services/layer.service';
+import { LayerOptions } from 'src/app/services/layer-options.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 import * as fromStore from '../../store';
 import { Store, select } from '@ngrx/store';
+import { Scenario } from 'src/app/models/scenario.model';
 
 @Component({
   selector: 'app-here-layer-manager',
@@ -25,11 +26,12 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
   toggleNav = new EventEmitter();
 
   sub: Subscription;
-  layers$ = this.store.pipe(select(fromStore.selectLayers));
+  layers$ = this.store.pipe(select(fromStore.getLayers));
+  scenarioState$ = this.store.pipe(select(fromStore.getScenarioState));
 
   constructor(
     public dialog: MatDialog,
-    public options: LayerService,
+    public options: LayerOptions,
     private store: Store<fromStore.State>
   ) {}
 
@@ -62,6 +64,28 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
 
   reorderLayers(event: CdkDragDrop<HereLayer[]>) {
     this.store.dispatch(fromStore.reorderLayers(event));
+  }
+
+  onFileSelected(fileInput: HTMLInputElement) {
+    if (fileInput.files && fileInput.files.length) {
+      const fileReader = new FileReader();
+      fileReader.readAsText(fileInput.files.item(0));
+      fileReader.onload = () => this.loadScenario(fileReader.result as string);
+      fileInput.value = '';
+    }
+  }
+
+  loadScenario(value: string) {
+    const scenario: Scenario = JSON.parse(value);
+    this.store.dispatch(fromStore.loadScenario({ scenario }));
+  }
+
+  clearScenarios() {
+    this.store.dispatch(fromStore.clearScenarios());
+  }
+
+  selectScenario(name: string) {
+    this.store.dispatch(fromStore.setSelectedScenario({ name }));
   }
 
   ngOnDestroy(): void {

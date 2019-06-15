@@ -10,6 +10,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { MatRippleModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
 
 const materialModules = [
   MatButtonModule,
@@ -22,7 +26,11 @@ const materialModules = [
   MatCheckboxModule,
   MatSliderModule,
   MatInputModule,
-  DragDropModule
+  DragDropModule,
+  MatExpansionModule,
+  MatListModule,
+  MatRippleModule,
+  MatRadioModule
 ];
 
 @NgModule({

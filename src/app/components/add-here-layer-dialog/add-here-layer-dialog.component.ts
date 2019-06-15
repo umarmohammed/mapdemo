@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
-import { LayerService } from 'src/app/services/layer.service';
+import { LayerOptions } from 'src/app/services/layer-options.service';
 import { HereLayer } from 'src/app/models/here-layer.model';
 import { GuidService } from 'src/app/services/guid.service';
 
@@ -19,7 +19,7 @@ export class AddHereLayerDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddHereLayerDialogComponent>,
-    public options: LayerService,
+    public options: LayerOptions,
     private fb: FormBuilder,
     private guid: GuidService
   ) {}
