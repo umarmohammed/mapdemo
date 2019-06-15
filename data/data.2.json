@@ -1,0 +1,17 @@
+{
+  "name": "Demo Scenario 2",
+  "routes": [
+    {
+      "stops": [
+        { "latitude": 52.132443, "longitude": -1.311697 },
+        { "latitude": 52.149968, "longitude": -1.327877 },
+        { "latitude": 52.159493, "longitude": -1.319057 },
+        { "latitude": 52.168931, "longitude": -1.299855 },
+        { "latitude": 52.154847, "longitude": -1.338262 },
+        { "latitude": 52.154972, "longitude": -2.146527 },
+        { "latitude": 51.844613, "longitude": -1.942818 },
+        { "latitude": 52.132443, "longitude": -1.311697 }
+      ]
+    }
+  ]
+}

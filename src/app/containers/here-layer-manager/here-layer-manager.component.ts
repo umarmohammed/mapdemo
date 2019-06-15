@@ -26,7 +26,8 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
   toggleNav = new EventEmitter();
 
   sub: Subscription;
-  layers$ = this.store.pipe(select(fromStore.selectLayers));
+  layers$ = this.store.pipe(select(fromStore.getLayers));
+  scenarioState$ = this.store.pipe(select(fromStore.getScenarioState));
 
   constructor(
     public dialog: MatDialog,
@@ -76,7 +77,15 @@ export class HereLayerManagerComponent implements OnInit, OnDestroy {
 
   loadScenario(value: string) {
     const scenario: Scenario = JSON.parse(value);
-    this.store.dispatch(fromStore.loadRoutes({ routes: scenario.routes }));
+    this.store.dispatch(fromStore.loadScenario({ scenario }));
+  }
+
+  clearScenarios() {
+    this.store.dispatch(fromStore.clearScenarios());
+  }
+
+  selectScenario(name: string) {
+    this.store.dispatch(fromStore.setSelectedScenario({ name }));
   }
 
   ngOnDestroy(): void {

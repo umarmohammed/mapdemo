@@ -1,5 +1,5 @@
 import * as fromLayers from './layers.reducer';
-import * as fromRoutes from './routes.reducer';
+import * as fromScenarios from './scenarios.reducer';
 import {
   createSelector,
   MetaReducer,
@@ -10,44 +10,63 @@ import {
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { toOlTileLayer, toLineVectorLayer } from 'src/app/util/layer-utils';
 import { MapViewModel } from 'src/app/models/map-view.model';
+import { Scenario } from 'src/app/models/scenario.model';
 
 export interface State {
   layers: fromLayers.State;
-  routes: fromRoutes.State;
+  scenarios: fromScenarios.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
   layers: fromLayers.reducer,
-  routes: fromRoutes.reducer
+  scenarios: fromScenarios.reducer
 };
 
-export const selectLayerState = createFeatureSelector<fromLayers.State>(
-  'layers'
+export const getLayerState = createFeatureSelector<fromLayers.State>('layers');
+
+export const getScenarioState = createFeatureSelector<fromScenarios.State>(
+  'scenarios'
 );
 
-export const selectRouteState = createFeatureSelector<fromRoutes.State>(
-  'routes'
-);
-
-export const selectLayers = createSelector(
-  selectLayerState,
+export const getLayers = createSelector(
+  getLayerState,
   state => (state ? state.layers : [])
 );
 
-export const selectOlTileLayers = createSelector(
-  selectLayers,
+export const getOlTileLayers = createSelector(
+  getLayers,
   layers => (layers ? layers.map(layer => toOlTileLayer(layer)) : [])
 );
 
-export const selectLineVectorLayers = createSelector(
-  selectRouteState,
-  state =>
-    state ? state.routes.map(route => toLineVectorLayer(route.stops)) : []
+export const getScenarios = createSelector(
+  getScenarioState,
+  state => fromScenarios.getItems(state)
 );
 
-export const selectMapViewModel = createSelector(
-  selectOlTileLayers,
-  selectLineVectorLayers,
+export const getSelectedScenarioName = createSelector(
+  getScenarioState,
+  state => state.selectedItemName
+);
+
+export const getSelectedScenario = createSelector(
+  getScenarios,
+  getSelectedScenarioName,
+  (scenarios, selectedScenarioName) =>
+    scenarios.find(scenario => scenario.name === selectedScenarioName) ||
+    ({} as Scenario)
+);
+
+export const getLineVectorLayers = createSelector(
+  getSelectedScenario,
+  scenario =>
+    scenario && scenario.routes
+      ? scenario.routes.map(route => toLineVectorLayer(route.stops))
+      : []
+);
+
+export const getMapViewModel = createSelector(
+  getOlTileLayers,
+  getLineVectorLayers,
   (tiles, vectors): MapViewModel => ({
     tiles,
     vectors
@@ -57,7 +76,7 @@ export const selectMapViewModel = createSelector(
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
-  return localStorageSync({ keys: ['layers', 'routes'], rehydrate: true })(
+  return localStorageSync({ keys: ['layers', 'scenarios'], rehydrate: true })(
     reducer
   );
 }

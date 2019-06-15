@@ -34,7 +34,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this.initialiseMap();
 
     this.sub = this.store$
-      .pipe(select(fromStore.selectMapViewModel))
+      .pipe(select(fromStore.getMapViewModel))
       .subscribe(vm => this.updateLayers(vm));
   }
 
