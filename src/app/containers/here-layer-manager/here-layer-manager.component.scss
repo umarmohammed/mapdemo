@@ -47,6 +47,10 @@
 .layers-list {
   height: calc(100vh - 261px);
   overflow: auto;
+
+  @media screen and (max-width: 600px) {
+    height: calc(100vh - 245px);
+  }
 }
 
 ::ng-deep div.mat-expansion-panel-body {
