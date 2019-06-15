@@ -4,10 +4,12 @@ import {
   createSelector,
   MetaReducer,
   ActionReducer,
-  ActionReducerMap
+  ActionReducerMap,
+  createFeatureSelector
 } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { toOlTileLayer, toLineVectorLayer } from 'src/app/util/layer-utils';
+import { MapViewModel } from 'src/app/models/map-view.model';
 
 export interface State {
   layers: fromLayers.State;
@@ -19,8 +21,16 @@ export const reducers: ActionReducerMap<State> = {
   routes: fromRoutes.reducer
 };
 
+export const selectLayerState = createFeatureSelector<fromLayers.State>(
+  'layers'
+);
+
+export const selectRouteState = createFeatureSelector<fromRoutes.State>(
+  'routes'
+);
+
 export const selectLayers = createSelector(
-  (state: State) => state.layers,
+  selectLayerState,
   state => (state ? state.layers : [])
 );
 
@@ -30,9 +40,18 @@ export const selectOlTileLayers = createSelector(
 );
 
 export const selectLineVectorLayers = createSelector(
-  (state: State) => state.routes,
+  selectRouteState,
   state =>
     state ? state.routes.map(route => toLineVectorLayer(route.stops)) : []
+);
+
+export const selectMapViewModel = createSelector(
+  selectOlTileLayers,
+  selectLineVectorLayers,
+  (tiles, vectors): MapViewModel => ({
+    tiles,
+    vectors
+  })
 );
 
 export function localStorageSyncReducer(

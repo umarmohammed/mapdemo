@@ -11,8 +11,7 @@ import { Subscription } from 'rxjs';
 
 import * as fromStore from '../../store';
 import { Store, select } from '@ngrx/store';
-import TileLayer from 'ol/layer/Tile';
-import { Vector } from 'ol/layer';
+import { MapViewModel } from 'src/app/models/map-view.model';
 
 @Component({
   selector: 'app-map',
@@ -32,6 +31,14 @@ export class MapComponent implements OnInit, OnDestroy {
   constructor(private store$: Store<fromStore.State>) {}
 
   ngOnInit() {
+    this.initialiseMap();
+
+    this.sub = this.store$
+      .pipe(select(fromStore.selectMapViewModel))
+      .subscribe(vm => this.updateLayers(vm));
+  }
+
+  private initialiseMap() {
     this.map = new Map({
       target: 'map',
       controls: [],
@@ -40,28 +47,24 @@ export class MapComponent implements OnInit, OnDestroy {
         zoom: 9
       })
     });
-
-    this.sub = this.store$
-      .pipe(select(fromStore.selectOlTileLayers))
-      .subscribe(layers => this.updateLayers(layers, this.lineVectorLayers));
-
-    this.store$
-      .pipe(select(fromStore.selectLineVectorLayers))
-      .subscribe(routes => this.updateLayers(this.tileLayers, routes));
   }
 
-  updateLayers(layers: TileLayer[], lineVectorLayers: Vector[]) {
+  // Unable to refactor this. When I do
+  // the map refuses to remove the last TileLayer.
+  // Not spending anymore time on this for now.
+  // Anyone reading this is welcome to try.
+  private updateLayers(vm: MapViewModel) {
     if (this.map) {
       this.tileLayers.forEach(layer => this.map.removeLayer(layer));
       this.tileLayers = [];
 
-      layers.forEach(layer => this.tileLayers.push(layer));
+      vm.tiles.forEach(layer => this.tileLayers.push(layer));
       this.tileLayers.forEach(layer => this.map.addLayer(layer));
 
       this.lineVectorLayers.forEach(layer => this.map.removeLayer(layer));
       this.lineVectorLayers = [];
 
-      lineVectorLayers.forEach(layer => this.lineVectorLayers.push(layer));
+      vm.vectors.forEach(layer => this.lineVectorLayers.push(layer));
       this.lineVectorLayers.forEach(layer => this.map.addLayer(layer));
     }
   }
