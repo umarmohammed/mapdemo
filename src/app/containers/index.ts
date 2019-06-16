@@ -3,11 +3,13 @@ import { MapComponent } from './map/map.component';
 import { ConfigEditorComponent } from './config-editor/config-editor.component';
 import { LayerEditorComponent } from './layer-editor/layer-editor.component';
 import { ScenarioEditorComponent } from './scenario-editor/scenario-editor.component';
+import { StyleActionsComponent } from './style-actions/style-actions.component';
 
 export const containers = [
   HomeComponent,
   MapComponent,
   ConfigEditorComponent,
   LayerEditorComponent,
-  ScenarioEditorComponent
+  ScenarioEditorComponent,
+  StyleActionsComponent
 ];
