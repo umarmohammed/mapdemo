@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as fromStore from '../../store';
+import { Scenario } from 'src/app/models/scenario.model';
 
 @Component({
   selector: 'app-scenario-editor',
@@ -16,5 +17,23 @@ export class ScenarioEditorComponent implements OnInit {
 
   selectScenario(name: string) {
     this.store.dispatch(fromStore.setSelectedScenario({ name }));
+  }
+
+  clearScenarios() {
+    this.store.dispatch(fromStore.clearScenarios());
+  }
+
+  onFileSelected(fileInput: HTMLInputElement) {
+    if (fileInput.files && fileInput.files.length) {
+      const fileReader = new FileReader();
+      fileReader.readAsText(fileInput.files.item(0));
+      fileReader.onload = () => this.loadScenario(fileReader.result as string);
+      fileInput.value = '';
+    }
+  }
+
+  loadScenario(value: string) {
+    const scenario: Scenario = JSON.parse(value);
+    this.store.dispatch(fromStore.loadScenario({ scenario }));
   }
 }
