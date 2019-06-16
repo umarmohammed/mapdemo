@@ -1,5 +1,5 @@
 {
-  "name": "Demo Scenario",
+  "name": "Demo 1",
   "routes": [
     {
       "stops": [
@@ -13,6 +13,18 @@
         { "longitude": -1.366136, "latitude": 52.004764 },
         { "longitude": -1.395831, "latitude": 52.383598 },
         { "longitude": -0.911915, "latitude": 52.212493 }
+      ]
+    },
+    {
+      "stops": [
+        { "latitude": 52.132443, "longitude": -1.311697 },
+        { "latitude": 52.149968, "longitude": -1.327877 },
+        { "latitude": 52.159493, "longitude": -1.319057 },
+        { "latitude": 52.168931, "longitude": -1.299855 },
+        { "latitude": 52.154847, "longitude": -1.338262 },
+        { "latitude": 52.154972, "longitude": -2.146527 },
+        { "latitude": 51.844613, "longitude": -1.942818 },
+        { "latitude": 52.132443, "longitude": -1.311697 }
       ]
     }
   ]
