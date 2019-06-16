@@ -12,11 +12,11 @@ body {
 $sidenav-width: 400px;
 
 .expansion-panel-content {
-  max-height: calc(100vh - 261px);
+  max-height: calc(100vh - 325px);
   overflow: auto;
 
   @media screen and (max-width: 600px) {
-    max-height: calc(100vh - 253px);
+    max-height: calc(100vh - 309px);
   }
 }
 
@@ -29,4 +29,8 @@ $sidenav-width: 400px;
   right: 0;
   bottom: 0;
   padding: 16px;
+}
+
+button.m-r1 {
+  margin-right: 8px;
 }

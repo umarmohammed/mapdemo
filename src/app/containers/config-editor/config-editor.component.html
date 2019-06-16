@@ -6,6 +6,26 @@
       <mat-icon>arrow_back</mat-icon>
     </button>
   </mat-toolbar-row>
+  <mat-toolbar-row>
+    <button
+      (click)="fileInput.click()"
+      mat-flat-button
+      color="primary"
+      class="m-r1"
+    >
+      Load Styles
+    </button>
+    <input
+      hidden
+      (change)="onFileSelected(fileInput)"
+      #fileInput
+      type="file"
+      id="file"
+    />
+    <button (click)="saveStyles()" mat-flat-button color="primary">
+      Save Styles
+    </button>
+  </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-accordion>
