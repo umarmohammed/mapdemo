@@ -1,0 +1,14 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Map demo</span>
+    <span class="toolbar-spacer"></span>
+    <button (click)="toggleNav.emit()" mat-icon-button>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-accordion>
+  <app-scenario-editor></app-scenario-editor>
+  <app-layer-editor></app-layer-editor>
+</mat-accordion>

@@ -5,10 +5,10 @@ import { fromLonLat } from 'ol/proj';
 import { Stroke, Style } from 'ol/style';
 import { LineString } from 'ol/geom';
 import { Stop } from '../models/stops.model';
-import { HereLayer } from '../models/here-layer.model';
+import { HereTileLayer } from '../models/here-tile-layer.model';
 import { environment } from 'src/environments/environment';
 
-export function toOlTileLayer(hereLayer: HereLayer): layer.Tile {
+export function toOlTileLayer(hereLayer: HereTileLayer): layer.Tile {
   return new layer.Tile({
     preload: Infinity,
     source: new source.XYZ({
@@ -50,7 +50,7 @@ export function toLineVectorLayer(stops: Stop[]) {
   });
 }
 
-function createUrl(hereLayer: HereLayer) {
+function createUrl(hereLayer: HereTileLayer) {
   return `https://{1-4}.base.maps.cit.api.here.com/maptile/2.1/${
     hereLayer.tile.key
   }/newest/${hereLayer.scheme}/{z}/{x}/{y}/256/png?app_id=${

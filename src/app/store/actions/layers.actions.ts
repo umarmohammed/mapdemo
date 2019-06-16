@@ -1,19 +1,19 @@
 import { createAction, Action, props } from '@ngrx/store';
-import { HereLayer } from 'src/app/models/here-layer.model';
+import { HereTileLayer } from 'src/app/models/here-tile-layer.model';
 
 export const addLayer = createAction(
   '[Layer Manager] add layer',
-  props<{ layer: HereLayer }>()
+  props<{ layer: HereTileLayer }>()
 );
 
 export const removeLayer = createAction(
   '[Layer Manager] remove layer',
-  props<{ layer: HereLayer }>()
+  props<{ layer: HereTileLayer }>()
 );
 
 export const updateLayer = createAction(
   '[Layer Manager] update layer',
-  props<{ layer: HereLayer }>()
+  props<{ layer: HereTileLayer }>()
 );
 
 export const reorderLayers = createAction(

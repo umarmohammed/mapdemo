@@ -1,6 +1,6 @@
 import { BaseMapTile } from './base-map-tile.model';
 
-export interface HereLayer {
+export interface HereTileLayer {
   id: string;
   scheme: string;
   tile: BaseMapTile;
