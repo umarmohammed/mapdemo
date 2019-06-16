@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LayerOptions } from 'src/app/services/layer-options.service';
-import { HereLayer } from 'src/app/models/here-layer.model';
+import { HereTileLayer } from 'src/app/models/here-tile-layer.model';
 import { GuidService } from 'src/app/services/guid.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class AddHereLayerDialogComponent implements OnInit {
   ok() {
     if (!this.addHereLayerForm.valid) return;
 
-    const hereLayer: HereLayer = {
+    const hereLayer: HereTileLayer = {
       ...this.addHereLayerForm.value,
       visible: true,
       id: this.guid.newGuid()

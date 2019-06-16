@@ -1,10 +1,10 @@
-import { HereLayer } from 'src/app/models/here-layer.model';
+import { HereTileLayer } from 'src/app/models/here-tile-layer.model';
 import { createReducer, on, Action } from '@ngrx/store';
 import * as LayerActions from '../actions/layers.actions';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 export interface State {
-  layers: HereLayer[];
+  layers: HereTileLayer[];
 }
 
 export const initialState: State = { layers: [] };

@@ -1,9 +1,13 @@
 import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
-import { HereLayerManagerComponent } from './here-layer-manager/here-layer-manager.component';
+import { ConfigEditorComponent } from './config-editor/config-editor.component';
+import { LayerEditorComponent } from './layer-editor/layer-editor.component';
+import { ScenarioEditorComponent } from './scenario-editor/scenario-editor.component';
 
 export const containers = [
   HomeComponent,
   MapComponent,
-  HereLayerManagerComponent
+  ConfigEditorComponent,
+  LayerEditorComponent,
+  ScenarioEditorComponent
 ];

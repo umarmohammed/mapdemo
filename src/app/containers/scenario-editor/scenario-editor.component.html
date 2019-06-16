@@ -1,0 +1,45 @@
+<mat-expansion-panel *ngIf="scenarioState$ | async as scenarioState">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Scenarios
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="expansion-panel-content">
+    <mat-list>
+      <mat-list-item
+        matRipple
+        *ngFor="let scenario of scenarioState.items"
+        (click)="selectScenario(scenario.name)"
+      >
+        {{ scenario.name }}
+        <mat-radio-button
+          [checked]="scenario.name === scenarioState.selectedItemName"
+          (change)="$event.preventDefault()"
+          class="align-right"
+        >
+        </mat-radio-button>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <mat-action-row>
+    <button
+      (click)="clearScenarios()"
+      mat-flat-button
+      color="warn"
+      class="m-r1"
+    >
+      Clear
+    </button>
+    <button (click)="fileInput.click()" mat-flat-button color="primary">
+      Load scenario
+    </button>
+    <input
+      hidden
+      (change)="onFileSelected(fileInput)"
+      #fileInput
+      type="file"
+      id="file"
+    />
+  </mat-action-row>
+</mat-expansion-panel>
