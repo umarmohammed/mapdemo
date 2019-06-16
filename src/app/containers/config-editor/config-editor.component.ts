@@ -2,8 +2,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
 import * as fromStore from '../../store';
-import { FileSaverService } from 'ngx-filesaver';
-import { HereTileLayer } from 'src/app/models/here-tile-layer.model';
 
 @Component({
   selector: 'app-config-editor',
