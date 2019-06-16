@@ -27,7 +27,11 @@ const layerReducer = createReducer(
     const layers = [...state.layers];
     moveItemInArray(layers, previousIndex, currentIndex);
     return { ...state, layers: [...layers] };
-  })
+  }),
+  on(LayerActions.loadLayers, (state, { layers }) => ({
+    ...state,
+    layers
+  }))
 );
 
 export function reducer(state: State, action: Action) {

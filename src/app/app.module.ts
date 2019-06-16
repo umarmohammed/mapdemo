@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FileSaverModule } from 'ngx-filesaver';
 
 import { AppComponent } from './app.component';
 import * as fromComponents from './components';
@@ -25,6 +26,7 @@ import { reducers, metaReducers } from './store/reducers';
     FormsModule,
     CommonModule,
     MaterialModule,
+    FileSaverModule,
     StoreModule.forRoot(reducers, { metaReducers })
   ],
   providers: [],

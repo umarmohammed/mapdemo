@@ -1,4 +1,4 @@
-import { createAction, Action, props } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { HereTileLayer } from 'src/app/models/here-tile-layer.model';
 
 export const addLayer = createAction(
@@ -19,4 +19,9 @@ export const updateLayer = createAction(
 export const reorderLayers = createAction(
   '[Layer Manager] reorder layers',
   props<{ previousIndex: number; currentIndex: number }>()
+);
+
+export const loadLayers = createAction(
+  '[Layer Manager] Load Layers',
+  props<{ layers: HereTileLayer[] }>()
 );

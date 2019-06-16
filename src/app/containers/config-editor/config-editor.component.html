@@ -6,6 +6,9 @@
       <mat-icon>arrow_back</mat-icon>
     </button>
   </mat-toolbar-row>
+  <mat-toolbar-row>
+    <app-style-actions [layers]="layers$ | async"></app-style-actions>
+  </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-accordion>
