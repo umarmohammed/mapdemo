@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import * as fromStore from '../../store';
-import { HereTileLayer } from 'src/app/models/here-tile-layer.model';
 import { FileSaverService } from 'ngx-filesaver';
+import { MapStyle } from 'src/app/models/map-style.model';
 
 @Component({
   selector: 'app-style-actions',
@@ -10,16 +10,16 @@ import { FileSaverService } from 'ngx-filesaver';
   styleUrls: ['./style-actions.component.scss']
 })
 export class StyleActionsComponent {
-  @Input() layers: HereTileLayer[];
+  mapStyle$ = this.store$.pipe(select(fromStore.getMapStyle));
 
   constructor(
-    private store: Store<fromStore.State>,
+    private store$: Store<fromStore.State>,
     private fileSaverService: FileSaverService
   ) {}
 
   loadMapStyle(value: string) {
-    const layers: HereTileLayer[] = JSON.parse(value);
-    this.store.dispatch(fromStore.loadLayers({ layers }));
+    const mapStyle: MapStyle = JSON.parse(value);
+    this.store$.dispatch(fromStore.loadMapStyle({ mapStyle }));
   }
 
   onFileSelected(fileInput: HTMLInputElement) {
@@ -31,7 +31,7 @@ export class StyleActionsComponent {
     }
   }
 
-  saveStyles() {
-    this.fileSaverService.saveText(JSON.stringify(this.layers), 'styles.json');
+  saveStyles(mapStyle: MapStyle) {
+    this.fileSaverService.saveText(JSON.stringify(mapStyle), 'styles.json');
   }
 }

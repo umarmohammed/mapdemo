@@ -11,7 +11,5 @@ import * as fromStore from '../../store';
 export class ConfigEditorComponent {
   @Output() toggleNav = new EventEmitter();
 
-  layers$ = this.store.pipe(select(fromStore.getLayers));
-
-  constructor(private store: Store<fromStore.State>) {}
+  constructor() {}
 }

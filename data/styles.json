@@ -1,0 +1,110 @@
+{
+  "routeColors": [
+    {
+      "hexValue": "#4a8944",
+      "id": "2f69d31e-5ccc-4cca-8fd3-5c5c79bbfb42",
+      "textColor": "#fff"
+    },
+    {
+      "hexValue": "#00a1c5",
+      "id": "333e6389-8ad6-4a37-9130-0e1b78bc2126",
+      "textColor": "#fff"
+    },
+    {
+      "hexValue": "#0025a0",
+      "id": "11e9fbc4-523d-404f-aee0-9047a96e197a",
+      "textColor": "#fff"
+    },
+    {
+      "hexValue": "#21677a",
+      "id": "b30dd1a2-b2d8-42a7-906c-612b27f07e25",
+      "textColor": "#fff"
+    },
+    {
+      "hexValue": "#cf8d2d",
+      "id": "e6ed7ccd-92fa-458d-8147-d777ef35993a",
+      "textColor": "#fff"
+    },
+    {
+      "hexValue": "#622d91",
+      "id": "a7a5aca0-3348-4e72-8542-dd5442f355bb",
+      "textColor": "#fff"
+    },
+    {
+      "hexValue": "#c1c630",
+      "id": "e0272317-c1ec-4b22-b619-0fe42e9f26b4",
+      "textColor": "#fff"
+    },
+    {
+      "hexValue": "#ef4130",
+      "id": "c7434dd9-a206-4f99-8a9f-0717c1b41fae",
+      "textColor": "#fff"
+    },
+    {
+      "hexValue": "#ab347d",
+      "id": "3b21be3d-14bc-45c0-b1a0-3dda5b329ee3",
+      "textColor": "#fff"
+    },
+    {
+      "hexValue": "#961d14",
+      "id": "ca4b8382-d6c8-4451-b8dc-aba8e8967b5d",
+      "textColor": "#fff"
+    },
+    {
+      "hexValue": "#9cb0bd",
+      "id": "c45818b6-5a98-40eb-8139-5f085fff3bc1",
+      "textColor": "#fff"
+    },
+    {
+      "hexValue": "#9a8b7d",
+      "id": "3d8e8a84-3d83-44f8-a825-ba15a3b550e3",
+      "textColor": "#fff"
+    }
+  ],
+  "layers": [
+    {
+      "scheme": "reduced.day",
+      "tile": {
+        "key": "basetile",
+        "name": "Base Map Tile",
+        "description": "A base map tile, which is an image that shows the map and streets, but no labels."
+      },
+      "opacity": "100",
+      "visible": true,
+      "id": "9ec74e8e-d58c-40b4-9c56-bcaa547d29db"
+    },
+    {
+      "scheme": "normal.night.grey",
+      "tile": {
+        "key": "linetile",
+        "name": "Line Tile",
+        "description": "A line tile image, which contains only street lines, no labels."
+      },
+      "opacity": 20,
+      "visible": true,
+      "id": "37cd446c-0300-420f-8314-640bbd0fcd15"
+    },
+    {
+      "scheme": "normal.day.grey",
+      "tile": {
+        "key": "labeltile",
+        "name": "Label Tile",
+        "description": "A tile that contains only labels."
+      },
+      "opacity": 60,
+      "visible": true,
+      "id": "2365ef90-ed14-48a2-b6e7-5b4746813538"
+    },
+    {
+      "scheme": "normal.day",
+      "tile": {
+        "key": "alabeltile",
+        "name": "Administrative Labels",
+        "description": "A tile that contains only administrative labels."
+      },
+      "opacity": 10,
+      "visible": true,
+      "id": "d6b715dd-3ca1-4ce0-a4ba-e4fba1be4ab6"
+    }
+  ]
+}
