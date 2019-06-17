@@ -9,10 +9,15 @@ import {
   createFeatureSelector
 } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
-import { toOlTileLayer, toLineVectorLayer } from 'src/app/util/layer-utils';
+import {
+  toOlTileLayer,
+  toLineVectorLayer,
+  toIconStyleLayer
+} from 'src/app/util/layer-utils';
 import { MapViewModel } from 'src/app/models/map-view.model';
 import { Scenario } from 'src/app/models/scenario.model';
 import { MapStyle } from 'src/app/models/map-style.model';
+import { Vector } from 'ol/layer';
 
 export interface State {
   layers: fromLayers.State;
@@ -92,12 +97,20 @@ export const getLineVectorLayers = createSelector(
       : []
 );
 
+export const getIconStyleLayers = createSelector(
+  getSelectedScenario,
+  (scenario): Vector =>
+    scenario && scenario.jobs ? toIconStyleLayer(scenario.jobs) : null
+);
+
 export const getMapViewModel = createSelector(
   getOlTileLayers,
   getLineVectorLayers,
-  (tiles, vectors): MapViewModel => ({
+  getIconStyleLayers,
+  (tiles, vectors, icons): MapViewModel => ({
     tiles,
-    vectors
+    vectors,
+    icons
   })
 );
 

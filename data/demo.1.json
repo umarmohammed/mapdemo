@@ -27,5 +27,31 @@
         { "latitude": 52.132443, "longitude": -1.311697 }
       ]
     }
+  ],
+  "jobs": [
+    {
+      "longitude": -0.911915,
+      "latitude": 52.212493,
+      "stopType": "PickupDepot"
+    },
+    { "longitude": -1.132761, "latitude": 52.479648, "stopType": "Delivery" },
+    { "longitude": -0.672242, "latitude": 52.538038, "stopType": "Delivery" },
+    { "longitude": -0.403833, "latitude": 52.308787, "stopType": "Delivery" },
+    { "longitude": 0.101254, "latitude": 52.406593, "stopType": "Delivery" },
+    { "longitude": -0.071314, "latitude": 52.089702, "stopType": "Delivery" },
+    { "longitude": -0.771021, "latitude": 51.894308, "stopType": "Delivery" },
+    { "longitude": -1.366136, "latitude": 52.004764, "stopType": "Delivery" },
+    { "longitude": -1.395831, "latitude": 52.383598, "stopType": "Delivery" },
+    {
+      "latitude": 52.132443,
+      "longitude": -1.311697,
+      "stopType": "PickupDepot"
+    },
+    { "latitude": 52.149968, "longitude": -1.327877, "stopType": "Delivery" },
+    { "latitude": 52.159493, "longitude": -1.319057, "stopType": "Delivery" },
+    { "latitude": 52.168931, "longitude": -1.299855, "stopType": "Delivery" },
+    { "latitude": 52.154847, "longitude": -1.338262, "stopType": "Delivery" },
+    { "latitude": 52.154972, "longitude": -2.146527, "stopType": "Delivery" },
+    { "latitude": 51.844613, "longitude": -1.942818, "stopType": "Delivery" }
   ]
 }
