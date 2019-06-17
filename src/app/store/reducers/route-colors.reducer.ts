@@ -39,3 +39,8 @@ const colorsReducer = createReducer(
 export function reducer(state: State, action: Action) {
   return colorsReducer(state, action);
 }
+
+export const getColor = (routeColors: RouteColor[], index: number): string =>
+  routeColors.length
+    ? routeColors[index % routeColors.length].hexValue
+    : '#000';

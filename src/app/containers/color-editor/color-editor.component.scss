@@ -2,8 +2,11 @@
   padding: 20px;
 }
 
-.hex-form-field {
+.hex-form {
   width: 100%;
+  mat-form-field {
+    width: 100%;
+  }
 }
 
 .remove-icon {
@@ -14,4 +17,12 @@
 
 mat-chip {
   color: white;
+}
+
+.expansion-panel-content {
+  max-height: calc(100vh - 414px);
+  overflow: auto;
+  @media screen and (max-width: 600px) {
+    max-height: calc(100vh - 399px);
+  }
 }

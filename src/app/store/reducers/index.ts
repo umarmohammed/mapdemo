@@ -80,9 +80,15 @@ export const getSelectedScenario = createSelector(
 
 export const getLineVectorLayers = createSelector(
   getSelectedScenario,
-  scenario =>
+  getRouteColors,
+  (scenario, routeColors) =>
     scenario && scenario.routes
-      ? scenario.routes.map(route => toLineVectorLayer(route.stops))
+      ? scenario.routes.map((route, i) =>
+          toLineVectorLayer(
+            route.stops,
+            fromRouteColors.getColor(routeColors, i)
+          )
+        )
       : []
 );
 
