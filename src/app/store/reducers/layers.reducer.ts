@@ -1,6 +1,7 @@
 import { HereTileLayer } from 'src/app/models/here-tile-layer.model';
 import { createReducer, on, Action } from '@ngrx/store';
 import * as LayerActions from '../actions/layers.actions';
+import * as MapStyleActions from '../actions/map-style.actions';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 export interface State {
@@ -28,9 +29,9 @@ const layerReducer = createReducer(
     moveItemInArray(layers, previousIndex, currentIndex);
     return { ...state, layers: [...layers] };
   }),
-  on(LayerActions.loadLayers, (state, { layers }) => ({
+  on(MapStyleActions.loadMapStyle, (state, { mapStyle }) => ({
     ...state,
-    layers
+    layers: mapStyle.layers
   }))
 );
 

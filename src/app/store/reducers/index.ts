@@ -1,5 +1,6 @@
 import * as fromLayers from './layers.reducer';
 import * as fromScenarios from './scenarios.reducer';
+import * as fromRouteColors from './route-colors.reducer';
 import {
   createSelector,
   MetaReducer,
@@ -11,18 +12,25 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { toOlTileLayer, toLineVectorLayer } from 'src/app/util/layer-utils';
 import { MapViewModel } from 'src/app/models/map-view.model';
 import { Scenario } from 'src/app/models/scenario.model';
+import { MapStyle } from 'src/app/models/map-style.model';
 
 export interface State {
   layers: fromLayers.State;
   scenarios: fromScenarios.State;
+  routeColors: fromRouteColors.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
   layers: fromLayers.reducer,
-  scenarios: fromScenarios.reducer
+  scenarios: fromScenarios.reducer,
+  routeColors: fromRouteColors.reducer
 };
 
 export const getLayerState = createFeatureSelector<fromLayers.State>('layers');
+
+export const getRouteColorsState = createFeatureSelector<fromRouteColors.State>(
+  'routeColors'
+);
 
 export const getScenarioState = createFeatureSelector<fromScenarios.State>(
   'scenarios'
@@ -31,6 +39,20 @@ export const getScenarioState = createFeatureSelector<fromScenarios.State>(
 export const getLayers = createSelector(
   getLayerState,
   state => (state ? state.layers : [])
+);
+
+export const getRouteColors = createSelector(
+  getRouteColorsState,
+  state => (state ? state.routeColors : [])
+);
+
+export const getMapStyle = createSelector(
+  getRouteColors,
+  getLayers,
+  (routeColors, layers): MapStyle => ({
+    routeColors,
+    layers
+  })
 );
 
 export const getOlTileLayers = createSelector(
@@ -76,9 +98,10 @@ export const getMapViewModel = createSelector(
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
-  return localStorageSync({ keys: ['layers', 'scenarios'], rehydrate: true })(
-    reducer
-  );
+  return localStorageSync({
+    keys: ['layers', 'scenarios', 'routeColors'],
+    rehydrate: true
+  })(reducer);
 }
 
 export const metaReducers: Array<MetaReducer<any, any>> = [

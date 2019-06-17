@@ -14,6 +14,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
+import {MatChipsModule} from '@angular/material/chips';
 
 const materialModules = [
   MatButtonModule,
@@ -30,7 +31,8 @@ const materialModules = [
   MatExpansionModule,
   MatListModule,
   MatRippleModule,
-  MatRadioModule
+  MatRadioModule,
+  MatChipsModule
 ];
 
 @NgModule({

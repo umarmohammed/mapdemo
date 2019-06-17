@@ -7,11 +7,12 @@
     </button>
   </mat-toolbar-row>
   <mat-toolbar-row>
-    <app-style-actions [layers]="layers$ | async"></app-style-actions>
+    <app-style-actions></app-style-actions>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-accordion>
   <app-scenario-editor></app-scenario-editor>
   <app-layer-editor></app-layer-editor>
+  <app-color-editor></app-color-editor>
 </mat-accordion>

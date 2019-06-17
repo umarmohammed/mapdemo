@@ -20,8 +20,3 @@ export const reorderLayers = createAction(
   '[Layer Manager] reorder layers',
   props<{ previousIndex: number; currentIndex: number }>()
 );
-
-export const loadLayers = createAction(
-  '[Layer Manager] Load Layers',
-  props<{ layers: HereTileLayer[] }>()
-);

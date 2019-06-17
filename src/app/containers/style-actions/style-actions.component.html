@@ -13,6 +13,11 @@
   type="file"
   id="file"
 />
-<button (click)="saveStyles()" mat-flat-button color="primary">
+<button
+  (click)="saveStyles(mapStyle)"
+  mat-flat-button
+  color="primary"
+  *ngIf="mapStyle$ | async as mapStyle"
+>
   Save Styles
 </button>
