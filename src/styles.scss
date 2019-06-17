@@ -12,11 +12,11 @@ body {
 $sidenav-width: 400px;
 
 .expansion-panel-content {
-  max-height: calc(100vh - 325px);
+  max-height: calc(100vh - 389px);
   overflow: auto;
 
   @media screen and (max-width: 600px) {
-    max-height: calc(100vh - 309px);
+    max-height: calc(100vh - 373px);
   }
 }
 

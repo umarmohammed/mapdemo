@@ -24,7 +24,7 @@ export function toOlTileLayer(hereLayer: HereTileLayer): layer.Tile {
   });
 }
 
-export function toLineVectorLayer(stops: Stop[]) {
+export function toLineVectorLayer(stops: Stop[], color: string) {
   const coordinates = stops.map(stop =>
     fromLonLat([stop.longitude, stop.latitude])
   );
@@ -42,7 +42,7 @@ export function toLineVectorLayer(stops: Stop[]) {
         stroke: new Stroke({
           width: 3,
           lineDash: [4, 8],
-          color: 'rgba(0, 0, 255, 1)'
+          color
         }),
         zIndex: 2
       })
