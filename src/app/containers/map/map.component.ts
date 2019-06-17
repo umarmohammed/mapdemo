@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import * as fromStore from '../../store';
 import { Store, select } from '@ngrx/store';
 import { MapViewModel } from 'src/app/models/map-view.model';
+import { Vector } from 'ol/layer';
 
 @Component({
   selector: 'app-map',
@@ -27,6 +28,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   tileLayers = [];
   lineVectorLayers = [];
+  iconLayer: Vector;
 
   constructor(private store$: Store<fromStore.State>) {}
 
@@ -66,6 +68,16 @@ export class MapComponent implements OnInit, OnDestroy {
 
       vm.vectors.forEach(layer => this.lineVectorLayers.push(layer));
       this.lineVectorLayers.forEach(layer => this.map.addLayer(layer));
+
+      if (this.iconLayer) {
+        this.map.removeLayer(this.iconLayer);
+        this.iconLayer = null;
+      }
+
+      if (vm.icons) {
+        this.iconLayer = vm.icons;
+        this.map.addLayer(vm.icons);
+      }
     }
   }
 
