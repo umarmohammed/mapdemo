@@ -67,9 +67,11 @@ export const getRouteColors = createSelector(
 export const getMapStyle = createSelector(
   getRouteColors,
   getLayers,
-  (routeColors, layers): MapStyle => ({
+  getStopIcons,
+  (routeColors, layers, icons): MapStyle => ({
     routeColors,
-    layers
+    layers,
+    icons
   })
 );
 
