@@ -1,6 +1,8 @@
 import * as fromLayers from './layers.reducer';
 import * as fromScenarios from './scenarios.reducer';
 import * as fromRouteColors from './route-colors.reducer';
+import * as fromStopIcons from './stop-icons.reducer';
+
 import {
   createSelector,
   MetaReducer,
@@ -23,12 +25,14 @@ export interface State {
   layers: fromLayers.State;
   scenarios: fromScenarios.State;
   routeColors: fromRouteColors.State;
+  stopIcons: fromStopIcons.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
   layers: fromLayers.reducer,
   scenarios: fromScenarios.reducer,
-  routeColors: fromRouteColors.reducer
+  routeColors: fromRouteColors.reducer,
+  stopIcons: fromStopIcons.reducer
 };
 
 export const getLayerState = createFeatureSelector<fromLayers.State>('layers');
@@ -39,6 +43,15 @@ export const getRouteColorsState = createFeatureSelector<fromRouteColors.State>(
 
 export const getScenarioState = createFeatureSelector<fromScenarios.State>(
   'scenarios'
+);
+
+export const getStopIconsState = createFeatureSelector<fromStopIcons.State>(
+  'stopIcons'
+);
+
+export const getStopIcons = createSelector(
+  getStopIconsState,
+  state => (state ? state.svg : '')
 );
 
 export const getLayers = createSelector(
@@ -99,8 +112,9 @@ export const getLineVectorLayers = createSelector(
 
 export const getIconStyleLayers = createSelector(
   getSelectedScenario,
-  (scenario): Vector =>
-    scenario && scenario.jobs ? toIconStyleLayer(scenario.jobs) : null
+  getStopIcons,
+  (scenario, icons): Vector =>
+    scenario && scenario.jobs ? toIconStyleLayer(scenario.jobs, icons) : null
 );
 
 export const getMapViewModel = createSelector(
@@ -118,7 +132,7 @@ export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
   return localStorageSync({
-    keys: ['layers', 'scenarios', 'routeColors'],
+    keys: ['layers', 'scenarios', 'routeColors', 'stopIcons'],
     rehydrate: true
   })(reducer);
 }

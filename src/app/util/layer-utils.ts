@@ -52,17 +52,13 @@ export function toLineVectorLayer(stops: Stop[], color: string) {
   });
 }
 
-export function toIconStyleLayer(jobs: Job[]) {
+export function toIconStyleLayer(jobs: Job[], svg: string) {
   const features = jobs.map(
     job =>
       new Feature({
         geometry: new Point(fromLonLat([job.longitude, job.latitude]))
       })
   );
-
-  const svg = `<svg width="40" height="40" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <circle fill="blue" cx="20" cy="20" r="20"/>
-    </svg>`;
 
   return new layer.Vector({
     source: new source.Vector({

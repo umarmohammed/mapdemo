@@ -1,0 +1,26 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Icons
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="expansion-panel-content">
+    <mat-card>
+      <mat-card-content>
+        <div [innerHTML]="icon$ | async"></div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <mat-action-row>
+    <button (click)="fileInput.click()" mat-flat-button color="primary">
+      Load icon
+    </button>
+    <input
+      hidden
+      (change)="onFileSelected(fileInput)"
+      #fileInput
+      type="file"
+      id="file"
+    />
+  </mat-action-row>
+</mat-expansion-panel>
