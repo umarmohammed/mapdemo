@@ -20,7 +20,7 @@ mat-chip {
 }
 
 .expansion-panel-content {
-  max-height: calc(100vh - 414px);
+  max-height: calc(100vh - 479px);
   overflow: auto;
   @media screen and (max-width: 600px) {
     max-height: calc(100vh - 399px);
